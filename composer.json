@@ -15,9 +15,6 @@
         "intervention/image": "^2.4"
     },
     "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/davidmars/monolog-parser"
-        }
+
     ]
 }
