@@ -1,7 +1,7 @@
 {
     "name":"davidmars/pov-2018",
     "description": "Encore un autre framework PHP orienté MVC",
-    "type": "project",
+    "type": "library",
     "minimum-stability": "dev",
     "prefer-stable": true,
 
