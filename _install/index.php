@@ -1,6 +1,6 @@
 <?php
-$composer=require __DIR__.'/../vendor/autoload.php';
-chdir(__DIR__ . '/github/');
+$composer=require __DIR__.'/vendor/autoload.php';
+
 
 //gestion des erreurs
 use Pov\MVC\View;

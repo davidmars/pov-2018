@@ -985,18 +985,9 @@ php_value max_input_vars 5000
 
 #--------------------------------POV 2017---------------------------------
 
-
-
-
-
-#empêche d'accéder au fmk en direct
-RewriteCond %{THE_REQUEST} pov2017/index.php
-RewriteRule ^(.*)$ pov2017/salut-je-suis-pov-2017.txt [L,QSA]
-
-
 #pov default url rewrite
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*)$ pov2017/index.php?routeOnly=$1 [L,QSA]
+RewriteRule ^(.*)$ index.php?routeOnly=$1 [L,QSA]
 
 
 

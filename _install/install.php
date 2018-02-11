@@ -14,7 +14,8 @@
 
 
 <?php
-$dir=__DIR__."/../configs/routes";
+//on est sensé être dans /vendor/pov-2018/_install
+$dir=__DIR__."/../../configs/routes";
 ?>
 Création du répertoire des configs dans <code><?=$dir?></code><br>
 <?
