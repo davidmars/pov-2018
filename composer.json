@@ -7,9 +7,7 @@
 
     "autoload": {
         "psr-4": {
-            "Pov\\": "pov2017/Pov/",
-            "Classiq\\": ["Classiq/","fk.app/src/Classiq/"],
-            "FK\\": ["fk.app/src/FK/"]
+            "Pov\\": "Pov/"
         }
     },
 
