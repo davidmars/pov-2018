@@ -3,7 +3,6 @@
     "description": "Encore un autre framework PHP orienté MVC",
     "type": "library",
     "minimum-stability": "dev",
-    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "Pov\\": "Pov/"
