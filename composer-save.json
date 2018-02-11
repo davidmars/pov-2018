@@ -4,18 +4,24 @@
     "type": "library",
     "minimum-stability": "dev",
     "prefer-stable": true,
+
     "autoload": {
         "psr-4": {
             "Pov\\": "Pov/"
         }
     },
+
+
     "require": {
+        "davidmars/monolog-parser": "dev-master",
         "mobiledetect/mobiledetectlib": "^2.8",
         "jenssegers/agent": "^2.6",
         "intervention/image": "^2.4"
     },
     "repositories": [
         {
+            "type": "vcs",
+            "url": "https://github.com/davidmars/monolog-parser"
         }
     ]
 }
