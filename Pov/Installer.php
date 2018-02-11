@@ -21,7 +21,7 @@ class Installer
         }
         //crée le répertoire/fichier configs/routes/127.0.0.1/mon-projet.php
         if(!is_dir("configs/routes/127.0.0.1")){
-            mkdir("configs/route/127.0.0.1",0777,true);
+            mkdir("configs/routes/127.0.0.1",0777,true);
         }
         if(!is_dir("files")){
             mkdir("files");
