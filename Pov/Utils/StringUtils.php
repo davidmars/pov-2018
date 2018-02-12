@@ -8,6 +8,7 @@ use Pov\System\AbstractSingleton;
  * Quelques méthodes pratiques pour gérer des chaines de caractères.
  *
  * @package Pov\Utils
+ * @method static StringUtils inst()
  */
 class StringUtils extends AbstractSingleton {
 
