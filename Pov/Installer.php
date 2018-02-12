@@ -3,6 +3,8 @@
 namespace Pov;
 
 
+use Pov\Utils\StringUtils;
+
 class Installer
 {
     /**
@@ -25,6 +27,11 @@ class Installer
         }
         if(!is_dir("files")){
             mkdir("files");
+        }
+        //génère mot de passe pour se connecter sur  /dev
+        if(!is_file("configs/dev-password.php")){
+            $pwd=StringUtils::inst()->random(10);
+            file_put_contents("configs/dev-password.php","<?php\n \$pwd='$pwd';");
         }
 
 
