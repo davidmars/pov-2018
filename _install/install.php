@@ -8,7 +8,7 @@
 </style>
 
 <h1>
-    Salut! je suis le programme d'installation de Pov2017.<hr>
+    Salut! je suis le programme d'installation de Pov 2018.<hr>
 </h1>
 
 

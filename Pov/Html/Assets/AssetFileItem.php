@@ -57,21 +57,13 @@ abstract class AssetFileItem {
             //file exists ???
             $url=trim($url,"/");
             if(!is_file($url)){
-                $url2="pov2017/".$url;
-                if(is_file($url2)){
-                    $url=$url2;
-                }else{
-                    pov()->log->error(
-                        get_called_class()." url problem",
-                        [$url]
-                    );
-                    throw(new PovException("Le fichier '$url' ne semble pas exister"));
-                }
-
+                pov()->log->error(
+                    get_called_class()." url problem",
+                    [$url]
+                );
+                throw(new PovException("Le fichier '$url' ne semble pas exister"));
             }
-
             $this->url="/".$url;
-
         }
 
 

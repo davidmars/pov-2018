@@ -1,7 +1,6 @@
 <?php
 
 namespace Pov;
-use Jenssegers\Agent\Agent;
 use Monolog\Handler\ChromePHPHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -72,7 +71,6 @@ class Pov extends AbstractSingleton
                     $log->pushProcessor(new WebProcessor($datas,$extrafields));
                     $log->pushHandler(new StreamHandler(the()->fileSystem->logFilepath(), Logger::DEBUG));
                     $log->pushHandler(new ChromePHPHandler());
-                    //$this->log->pushHandler(new NativeMailerHandler("d.marsalone@gmail.com","pov2017 log","d.marsalone@gmail.com"));
                     return self::storeSet($property,$log);
                     break;
                 case "utils":

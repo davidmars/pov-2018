@@ -1,7 +1,7 @@
 <h1>Tests Images</h1>
 
 <?php
-$imgSrc='pov2017/files/samples/the-beatles.jpg';
+$imgSrc=__DIR__.'/test-image.jpg';
 ?>
 
 <?php
