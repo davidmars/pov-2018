@@ -2,15 +2,7 @@
 /**
  * regarde si l'utilisateur est loggué en dev, si ce n'est pas le cas, va lui demander son pwd
  */
-$pwdFile = __DIR__ . "/../../configs/dev-password.php";
-if (!file_exists($pwdFile)) {
-    die("pas de pwd file " . ($pwdFile));
-}
-include $pwdFile;
-$devPwd = $pwd;
-if (!$devPwd) {
-    die("pas de pwd");
-}
+$devPwd=the()->human->devPassword();
 function askLogin()
 {
     header('WWW-Authenticate: Basic realm="povrealm"');

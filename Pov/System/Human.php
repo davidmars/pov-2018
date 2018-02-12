@@ -1,6 +1,7 @@
 <?php
 
 namespace Pov\System;
+use Pov\PovException;
 
 /**
  * La classe Human fait réference à une internaute devant son écran
@@ -33,10 +34,15 @@ class Human {
     /**
      * Renvoie le mot de passe de dev (génère le mot de passe au besoin dans configs/dev-password.php)
      * @return string
+     * @throws PovException si le password n'a pas été généré
      */
-    private function devPassword(){
+    public function devPassword(){
         if(!$this->_devPassword){
-            include __DIR__ . "/../../_inc/install/gen-dev-password.php";
+            $f="configs/dev-password.php";
+            if(!is_file($f)){
+                throw new PovException("missing password file (configs/dev-password.php)");
+            }
+            include $f;
             $this->_devPassword=$pwd;
         }
         return $this->_devPassword;
