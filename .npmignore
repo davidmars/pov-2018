@@ -1,0 +1,9 @@
+*.php
+.idea
+/Pov
+/_inc
+/_install
+/composer.json
+/conventions.md
+/credits.md
+/README.md
