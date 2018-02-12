@@ -3,8 +3,9 @@
 use Pov\Defaults\C_dev;
 
 $view->inside("layout/html5bp",the()->htmlLayout());
-the()->htmlLayout()->install()->pov();
-the()->htmlLayout()->install()->uikit();
+the()->htmlLayout()->addCssToHeader("vendor/davidmars/pov-2018/dist/dev-ui.css");
+the()->htmlLayout()->addJsToFooter("vendor/davidmars/pov-2018/dist/dev-ui.js");
+
 
 $askForLogin=the()->request("askForLogin");
 if($askForLogin=="false"){
