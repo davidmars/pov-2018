@@ -76,27 +76,6 @@ if(is_file($file) && !is_file($targetFile)){
 ?>
 <pre><?=$r?></pre>
 
-
-
-
-Génère le password de dev<br>
-<?
-$pwdFile=__DIR__."/../configs/dev-password.php";
-if(is_file($pwdFile)){
-    $r="il existait déjà";
-}else{
-    include __DIR__ . "/_inc/install/gen-dev-password.php";
-    if(!is_file($pwdFile)){
-        $r="oups fichier $pwdFile manquant";
-    }else{
-        $r="ok";
-    }
-}
-
-
-?>
-<pre><?=$r?></pre>
-
 <hr>
 
 <?php
