@@ -1,5 +1,6 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 const webpack = require('webpack');
 var build="dev";
 //less
@@ -89,7 +90,7 @@ var cssOptions={
 module.exports = {
     entry: {
         "pov-boot":"./_src/pov.boot.js", //toutes les libs de Pov jquery compris
-        "dev-ui":"./_src/dev-ui.js", //l'ui de dev
+        "dev-ui":"./_src/dev-ui.js", //l'ui de http://mon-projet.com/dev
     },
     output: {
         filename: '[name].js',
@@ -123,6 +124,7 @@ module.exports = {
             "dist/assets"
             ]
         ),
+        new UglifyJSPlugin(),
         new webpack.DefinePlugin({
             'webpackVersion': JSON.stringify(
                 {
@@ -135,6 +137,12 @@ module.exports = {
     ],
     module: {
         rules: [
+            //
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: "babel-loader"
+            },
             //fonts
             {
                 test: /fonts.*\.(eot|ttf|otf|woff|woff2|svg)$/,

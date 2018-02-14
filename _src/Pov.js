@@ -1,9 +1,3 @@
-import PovEvents from "./PovEvents";
-
-require("./pov-svg/pov-svg.less");
-
-import EventEmitter from "event-emitter-es6";
-
 export default class Pov{
 
     static __init(){

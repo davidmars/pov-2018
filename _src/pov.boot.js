@@ -24,7 +24,39 @@ window.PovApi =PovApi;
 import Stage from "./Stage";
 
 import PovSSE from "./PovSSE";
+import PovUtils from "./PovUtils";
+import Xdebug from "./xdebug/Xdebug";
 window.povSSE=new PovSSE(null);
+
+window.pov={
+    /**
+     * @type {PovUtils}
+     */
+    utils:PovUtils,
+    /**
+     * @type {PovHistory}
+     */
+    history:window.PovHistory,
+    /**
+     * @type {PovApi}
+     */
+    api:window.PovApi,
+    /**
+     * une instance de PovSS
+     * @type {PovSSE}
+     */
+    sse:window.povSSE,
+    /**
+     * Accès à la classe PovSSE
+     * @type {PovSSE}
+     */
+    PovSSE:PovSSE,
+    /**
+     * Accès à la classe Xdebug
+     * @type {Xdebug}
+     */
+    Xdebug:Xdebug
+};
 
 
 /**
