@@ -54,6 +54,7 @@ abstract class AssetFileItem {
             $this->useVersion=false;
         }else{
             $this->isDistant=false;
+            $url=preg_replace("@^".preg_quote(the()->fmkHttpRoot)."@","",$url);
             //file exists ???
             $url=trim($url,"/");
             if(!is_file($url)){
