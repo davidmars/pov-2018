@@ -59,15 +59,6 @@ class Boot {
         //url courrante
         the()->requestUrl=UrlPov::current();
 
-        //si slash à la fin de l'url on redirige car on aime pas ça
-        $urlNoQuery=parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        if(preg_match("@.+/$@",$urlNoQuery)){
-            $noSlash=the()->requestUrl->fullUrl;
-            //die("slash à la fin on redirige de $urlNoQuery vers $noSlash");
-            the()->headerOutput->setRedirect($noSlash,"301");
-            the()->headerOutput->run();
-        }
-
 
     }
 
@@ -128,6 +119,17 @@ class Boot {
 
         //--------------------à partir d'ici on a un projet-------------------
 
+
+        //si slash à la fin de l'url on redirige car on aime pas ça
+        /*
+        $urlNoQuery=parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        if(preg_match("@.+/$@",$urlNoQuery)){
+            $noSlash=the()->requestUrl->fullUrl;
+            die("slash à la fin on redirige de $urlNoQuery vers $noSlash");
+            the()->headerOutput->setRedirect($noSlash,"301");
+            the()->headerOutput->run();
+        }
+        */
 
         //force https?
         if(the()->configProjectUrl->forceHttps && !the()->requestUrl->isHttps){
