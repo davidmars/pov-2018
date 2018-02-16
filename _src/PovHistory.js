@@ -86,13 +86,14 @@ export default class PovHistory{
                 if(cb){
                     cb(e);
                 }else{
-                    if(e.html){
-                        PovHistory.injectHtml(e.html);
-                    }
                     if(e.json.meta){
                         PovHistory.setMeta(e.json.meta);
                         PovHistory.currentPageInfo=e.json.pageInfo;
                     }
+                    if(e.html){
+                        PovHistory.injectHtml(e.html);
+                    }
+
                 }
 
 
