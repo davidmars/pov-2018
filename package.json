@@ -33,6 +33,6 @@
     "webpack": "^3.10.0"
   },
   "scripts": {
-    "build": "webpack --config webpack.config.js"
+    "build-pov-2018": "webpack --config webpack.config.js"
   }
 }

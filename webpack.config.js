@@ -52,10 +52,8 @@ function getAssetPath(file,addHash=true,baseDirInAsset=""){
 
 
 //---less-----
-
 const LessPluginAutoprefix=require('less-plugin-autoprefix');
 const lessPluginAutoprefix=new LessPluginAutoprefix({browsers: ["last 6 versions"]});
-
 var lessOptions=function(){
     return{
         compress: true,
@@ -84,10 +82,8 @@ var cssOptions={
     minimize: true
 };
 
-
-
-
 module.exports = {
+    devtool: 'source-map',
     entry: {
         "pov-boot":"./_src/pov.boot.js", //toutes les libs de Pov jquery compris
         "dev-ui":"./_src/dev-ui.js", //l'ui de http://mon-projet.com/dev
@@ -124,7 +120,7 @@ module.exports = {
             "dist/assets"
             ]
         ),
-        new UglifyJSPlugin(),
+        new UglifyJSPlugin({sourceMap: true}),
         new webpack.DefinePlugin({
             'webpackVersion': JSON.stringify(
                 {
