@@ -10,7 +10,7 @@ use Pov\Utils\AssetLibs;
 
 /**
  * La Classe Layout représente un layout HTML.
- * Permet entre autre chose de gérer les fichiers JS, CSS, les meta SEO, des données à transmettre à javascript etc...
+ * Permet entre autre chose de gérer les fichiers JS, CSS, les meta SEO, les favicons, des données à transmettre à javascript etc...
  *
  * @package Pov\Html
  */
@@ -64,11 +64,47 @@ class Layout {
     }
 
     /**
-     * @param $jsFile string chemin vers le fichier Javascript
+     * Ajoute un fichier javascript dans le footer
+     * @param string $jsFile  chemin vers le fichier Javascript
+     * @param bool $prepend si true rajoute le fichier au début de la pile
      */
-    public function addJsToFooter($jsFile){
+    public function addJsToFooter($jsFile,$prepend=false){
         $fileItem=new JsFileItem($jsFile);
-        $this->jsFooterFiles[$jsFile]=$fileItem;
+        if($prepend){
+            $this->jsFooterFiles=array($jsFile=>$fileItem)+$this->jsFooterFiles;
+        }else{
+            $this->jsFooterFiles[$jsFile]=$fileItem;
+        }
+
+    }
+    /**
+     * Ajoute un fichier javascript dans le header
+     * @param string $jsFile  chemin vers le fichier Javascript
+     * @param bool $prepend si true rajoute le fichier au début de la pile
+     */
+    public function addJsToHeader($jsFile,$prepend=false){
+        $fileItem=new JsFileItem($jsFile);
+        if($prepend){
+            $this->jsHeaderFiles=array($jsFile=>$fileItem)+$this->jsHeaderFiles;
+        }else{
+            $this->jsHeaderFiles[$jsFile]=$fileItem;
+        }
+    }
+    /**
+     * Ajoute un fichier css au footer
+     * @param $cssFile string chemin vers le fichier Css
+     */
+    public function addCssToFooter($cssFile){
+        $fileItem=new CssFileItem($cssFile);
+        $this->cssFooterFiles[$cssFile]=$fileItem;
+    }
+    /**
+     * Ajoute un fichier css au header
+     * @param $cssFile string chemin vers le fichier Css
+     */
+    public function addCssToHeader($cssFile){
+        $fileItem=new CssFileItem($cssFile);
+        $this->cssHeaderFiles[$cssFile]=$fileItem;
     }
 
     public function addImportToHeader($htmlFile)
@@ -80,37 +116,6 @@ class Layout {
     {
         $fileItem=new ImportFileItem($htmlFile);
         $this->importFooterFiles[$htmlFile]=$fileItem;
-    }
-
-    /**
-     * @param $jsFile string chemin vers le fichier Javascript
-     */
-    public function addJsToHeader($jsFile){
-        $fileItem=new JsFileItem($jsFile);
-        $this->jsHeaderFiles[$jsFile]=$fileItem;
-    }
-
-    /**
-     * @param $cssFile string chemin vers le fichier Css
-     */
-    public function addCssToFooter($cssFile){
-        $fileItem=new CssFileItem($cssFile);
-        $this->cssFooterFiles[$cssFile]=$fileItem;
-    }
-    /**
-     * @param $cssFile string chemin vers le fichier Css
-     */
-    public function addCssToHeader($cssFile){
-        $fileItem=new CssFileItem($cssFile);
-        $this->cssHeaderFiles[$cssFile]=$fileItem;
-    }
-
-    /**
-     * @param $lessFile string chemin vers le fichier Less
-     */
-    public function addLessToHeader($lessFile){
-        $fileItem=new LessFileItem($lessFile);
-        $this->cssFooterFiles[$lessFile]=$fileItem;
     }
 
     /**
