@@ -119,6 +119,15 @@ var EVENTS={
      * @type {string}
      */
     SSE_INFO:"info",
+
+    /**
+     * ready ou dom change
+     */
+    DOM_CHANGE_OR_READY:"POV_EVENT_READY POV_EVENT_DOM_CHANGE",
+    /**
+     * le dom a changé
+     */
+    DOM_CHANGE:"POV_EVENT_DOM_CHANGE"
 };
 
 window.EVENTS=EVENTS;
