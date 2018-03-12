@@ -44,4 +44,58 @@ class DateUtils extends AbstractSingleton
     {
         return date("Y-m-d H:i:s");
     }
+
+    /**
+     * Formate la date dasn la langue spécifiée
+     * @param \DateTime $dateTime
+     * @param string $format something like "l d M Y" to get something like lundi 31 décembre 2014
+     * @return string
+     */
+    public function formatLocale($dateTime, $format, $langCode="fr_FR"){
+        if(!is_a($dateTime,"DateTime")){
+            return $format;
+        }
+        $ts=$dateTime->getTimestamp();
+        setlocale(LC_TIME, "$langCode.UTF-8");
+        return strftime($this->dateFormatToStrftime($format),$dateTime->getTimestamp());
+    }
+
+    /**
+     * Convert a classic date format expression in strftime format
+     * @param string $dateFormat Something like
+     * @return string
+     */
+    private function dateFormatToStrftime($dateFormat) {
+
+        $caracs = [
+            // Day - no strf eq : S
+            'd' => '%d', 'D' => '%a', 'j' => '%e', 'l' => '%A', 'N' => '%u', 'w' => '%w', 'z' => '%j',
+            // Week - no date eq : %U, %W
+            'W' => '%V',
+            // Month - no strf eq : n, t
+            'F' => '%B', 'm' => '%m', 'M' => '%b',
+            // Year - no strf eq : L; no date eq : %C, %g
+            'o' => '%G', 'Y' => '%Y', 'y' => '%y',
+            // Time - no strf eq : B, G, u; no date eq : %r, %R, %T, %X
+            'a' => '%P', 'A' => '%p', 'g' => '%l', 'h' => '%I', 'H' => '%H', 'i' => '%M', 's' => '%S',
+            // Timezone - no strf eq : e, I, P, Z
+            'O' => '%z', 'T' => '%Z',
+            // Full Date / Time - no strf eq : c, r; no date eq : %c, %D, %F, %x
+            'U' => '%s'
+        ];
+
+        return strtr((string)$dateFormat, $caracs);
+    }
+
+    /**
+     * Teste si la date donnée est passée
+     * @param \DateTime $dateTime
+     * @return bool
+     */
+    public function isPast($dateTime){
+        $d=new \DateTime();
+        if($d->getTimestamp()>$dateTime->getTimestamp()){
+            return true;
+        }
+    }
 }
