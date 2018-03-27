@@ -27,26 +27,32 @@ if(!is_a($vv,"Pov\Html\Layout")){
 <?if($vv->meta->author):?>
 <meta name="author" content="<?php echo $vv->meta->author?>">
 <?endif?>
-<?/*
-<?if($vv->metaFbAppId):?>
-<meta property="fb:app_id" content="<?=$vv->metaFbAppId?>"/>
+
+
+<?if($vv->facebookAppId):?>
+<meta property="fb:app_id" content="<?=$vv->facebookAppId?>"/>
 <?endif?>
+<?/*
 <?if($vv->metaGooglePublisher):?>
 <link href="<?=$vv->metaGooglePublisher?>" rel="publisher" />
 <?endif?>
+*/?>
+<?/*
 <?php if(!$vv->robotIndex):?>
 <meta name="robots" content="noindex, follow">
 <?endif?>
-<?php echo $vv->metaGoogleWebmasterTools()?>
+*/?>
+<?if($vv->googleSiteVerification):?>
+<meta name="google-site-verification" content="<?=$vv->googleSiteVerification?>" />
+<?endif?>
 
+<?/*
 <?if($vv->twitterCard):?>
 <!-- twitter card -->
-<?=$view->render("layout/meta/twitter-card",$vv->twitterCard);?>
-<?endif?>
-<?if(PovFacebook::$app):?>
-<meta property="fb:app_id" content="<?=PovFacebook::$app->appId?>"/>
+<?//=$view->render("layout/meta/twitter-card",$vv->twitterCard);?>
 <?endif?>
 */?>
+
 <?
 
 //----------languages---
@@ -77,19 +83,26 @@ if(!is_a($vv,"Pov\Html\Layout")){
 <?if($vv->pageData && $vv->pageData->hashTag):?>
 <meta name="hashtag" content="<?=$vv->pageData->hashTag?>">
 <?endif?>
+
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <?if($vv->appleTouchStartupImage):?>
 <link rel="apple-touch-startup-image" href="<?php echo $vv->appleTouchStartupImage?>">
 <?endif?>
-<?//OpenGraph (facebook mainly)--?>
-<?if($vv->ogImage):?>
-<meta property="og:image" content="<?php echo $vv->ogImage?>">
-<?endif?>
+*/?>
+
 <?//RSS--?>
+<?/*
 <?php if(isset($vv->hrefRss)):?>
     <link rel="alternate" type="application/rss+xml" title="RSS" href="<?php echo GiveMe::url($vv->hrefRss->url,true)?>">
 <?php endif?>
 */?>
+<?//OpenGraph (facebook mainly)--?>
+<?if($vv->ogImage):?>
+    <meta property="og:image" content="<?php echo $vv->ogImage?>">
+<?endif?>
+<?if($vv->ogType):?>
+    <meta property="og:type" content="<?php echo $vv->ogType?>">
+<?endif?>
 <?//Favicons--?>
 <?if($vv->favicon->icon144):?>
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo $vv->favicon->icon144?>">

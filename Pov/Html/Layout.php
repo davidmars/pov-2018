@@ -132,6 +132,27 @@ class Layout {
      */
     public $favicon;
 
+    /**
+     * @var string code pour google webmaster tools (webconsole google)
+     */
+    public $googleSiteVerification="";
+
+    /**
+     * @var string Url de l'image de previewu facebook
+     */
+    public $ogImage="";
+    /**
+     * @var string voir https://developers.facebook.com/docs/reference/opengraph#object-type
+     */
+    public $ogType="article";
+
+    /**
+     * @var string id de l'app facebook
+     */
+    public $facebookAppId="";
+
+
+
 
 
 
