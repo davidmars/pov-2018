@@ -19,11 +19,16 @@ if(!is_a($vv,"Pov\Html\Layout")){
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title><?=$vv->meta->title?></title>
+<meta name="twitter:card" content="summary" >
 <meta property="og:title" content="<?=$vv->meta->title?>" />
+<meta name="twitter:title" content="<?=$vv->meta->title?>" >
 <meta property="og:url" content="<?= the()->requestUrl->fullUrl?>" />
 <meta name="description" content="<?=$vv->meta->description?>">
 <meta property="og:description" content="<?=$vv->meta->description?>" />
-<meta name="keywords" content="<?=$vv->meta->keywords?>">
+<meta name="twitter:description" content="<?=$vv->meta->description?>" >
+
+
+    <meta name="keywords" content="<?=$vv->meta->keywords?>">
 <?if($vv->meta->author):?>
 <meta name="author" content="<?php echo $vv->meta->author?>">
 <?endif?>
@@ -99,6 +104,7 @@ if(!is_a($vv,"Pov\Html\Layout")){
 <?//OpenGraph (facebook mainly)--?>
 <?if($vv->ogImage):?>
     <meta property="og:image" content="<?php echo $vv->ogImage?>">
+    <meta name="twitter:image" content="<?php echo the()->configProjectUrl->absoluteUrl().$vv->ogImage?>" >
 <?endif?>
 <?if($vv->ogType):?>
     <meta property="og:type" content="<?php echo $vv->ogType?>">
