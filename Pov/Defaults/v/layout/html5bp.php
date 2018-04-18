@@ -26,118 +26,75 @@ if(!is_a($vv,"Pov\Html\Layout")){
 <meta name="description" content="<?=$vv->meta->description?>">
 <meta property="og:description" content="<?=$vv->meta->description?>" />
 <meta name="twitter:description" content="<?=$vv->meta->description?>" >
-
-
-    <meta name="keywords" content="<?=$vv->meta->keywords?>">
+<meta name="keywords" content="<?=$vv->meta->keywords?>">
 <?if($vv->meta->author):?>
 <meta name="author" content="<?php echo $vv->meta->author?>">
 <?endif?>
-
-
 <?if($vv->facebookAppId):?>
 <meta property="fb:app_id" content="<?=$vv->facebookAppId?>"/>
 <?endif?>
-<?/*
-<?if($vv->metaGooglePublisher):?>
-<link href="<?=$vv->metaGooglePublisher?>" rel="publisher" />
-<?endif?>
-*/?>
-<?/*
-<?php if(!$vv->robotIndex):?>
-<meta name="robots" content="noindex, follow">
-<?endif?>
-*/?>
 <?if($vv->googleSiteVerification):?>
 <meta name="google-site-verification" content="<?=$vv->googleSiteVerification?>" />
 <?endif?>
-
-<?/*
-<?if($vv->twitterCard):?>
-<!-- twitter card -->
-<?//=$view->render("layout/meta/twitter-card",$vv->twitterCard);?>
-<?endif?>
-*/?>
-
 <?
-
 //----------languages---
-
 ?>
 <link rel="canonical" href="<?=the()->requestUrl->fullUrl?>">
+<link rel="alternate" href="<?=the()->requestUrl->fullUrl?>" hreflang="<?=$vv->hreflang?>"/>
 <?/*
 <?foreach(theProject()->hosts() as $h):?>
 <link rel="alternate" hreflang="<?=$h->language->langCode?>" href="<?=$h->getUrl(ThePage::currentUrl())?>" />
 <?endforeach?>
 */?>
 <?
-
 //IE We love you---
 ?>
 <!--[if IE]>
 <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1,requiresactivex=true">
 <meta http-equiv="imagetoolbar" content="no">
 <![endif]-->
-
 <?
 
 //Mobile--
 
 ?>
 <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-<?/*
-<?if($vv->pageData && $vv->pageData->hashTag):?>
-<meta name="hashtag" content="<?=$vv->pageData->hashTag?>">
-<?endif?>
-
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<?if($vv->appleTouchStartupImage):?>
-<link rel="apple-touch-startup-image" href="<?php echo $vv->appleTouchStartupImage?>">
-<?endif?>
-*/?>
-
-<?//RSS--?>
-<?/*
-<?php if(isset($vv->hrefRss)):?>
-    <link rel="alternate" type="application/rss+xml" title="RSS" href="<?php echo GiveMe::url($vv->hrefRss->url,true)?>">
-<?php endif?>
-*/?>
-<?//OpenGraph (facebook mainly)--?>
+<?
+//----OpenGraph (facebook mainly)--
+?>
 <?if($vv->ogImage):?>
-    <meta property="og:image" content="<?php echo $vv->ogImage?>">
-    <meta name="twitter:image" content="<?php echo the()->configProjectUrl->absoluteUrl().$vv->ogImage?>" >
+<meta property="og:image" content="<?php echo $vv->ogImage?>">
+<meta name="twitter:image" content="<?php echo the()->configProjectUrl->absoluteUrl().$vv->ogImage?>" >
 <?endif?>
 <?if($vv->ogType):?>
-    <meta property="og:type" content="<?php echo $vv->ogType?>">
+<meta property="og:type" content="<?php echo $vv->ogType?>">
 <?endif?>
-<?//Favicons--?>
+<?
+//-------Favicons-------
+?>
 <?if($vv->favicon->icon144):?>
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo $vv->favicon->icon144?>">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo $vv->favicon->icon144?>">
 <?endif?>
 <?if($vv->favicon->icon114):?>
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo $vv->favicon->icon114?>">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo $vv->favicon->icon114?>">
 <?endif?>
 <?if($vv->favicon->icon72):?>
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo $vv->favicon->icon72?>">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo $vv->favicon->icon72?>">
 <?endif?>
 <?if($vv->favicon->icon57):?>
-    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="<?php echo $vv->favicon->icon57?>">
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="<?php echo $vv->favicon->icon57?>">
 <?endif?>
 <?if($vv->favicon->favicon):?>
-    <link rel="shortcut icon" href="<?php echo $vv->favicon->favicon?>">
+<link rel="shortcut icon" href="<?php echo $vv->favicon->favicon?>">
 <?endif;?>
-
+<?
+//-------themeColor-------
+?>
 <?if($vv->meta->themeColor):?>
-<!-- Chrome, Firefox OS and Opera -->
 <meta name="theme-color" content="<?=$vv->meta->themeColor?>">
-<!-- Windows Phone -->
 <meta name="msapplication-navbutton-color" content="<?=$vv->meta->themeColor?>">
-<!-- iOS Safari -->
 <meta name="apple-mobile-web-app-status-bar-style" content="<?=$vv->meta->themeColor?>">
 <?endif?>
-
-
-
-
 <?/*
  *
  *
@@ -154,26 +111,8 @@ if(!is_a($vv,"Pov\Html\Layout")){
 <?foreach($vv->importHeaderFiles as $import):?>
 <?=$import->htmlTag()?>
 <?endforeach;?>
-<?/*
- *
- *
- * Right to left?
- *
- *
-*/?>
-    <?/*
-<?if(theProject()->language->langCode==Language::ARABIC_CODE):?>
-<style>
-    body{
-        direction: rtl;
-    }
-</style>
-<?endif?>
-*/?>
 </head>
-
 <body>
-
 <?/*
  *
  *
