@@ -74,6 +74,7 @@ class View {
      * @param mixed $viewVariables The object that will be used in this view
      * @param bool $strict when set to true trow exception if the templates path is invalid
      * @return View
+     * @throws \Exception
      */
     public static function get($path,$viewVariables=null,$strict=false){
         if($strict){

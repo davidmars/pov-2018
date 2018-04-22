@@ -93,10 +93,20 @@ class Pov extends AbstractSingleton
 
     /**
      * Pour optimiser des images
-     * @param string $imgSrc url de l'image à modifier
+     * @param string $imgSrc url de l'image à modifier (peut commencer par ./ pour les urls relatives au fichier appellant).
      * @return ImgUrlHtml
      */
     public function img($imgSrc){
+        if(preg_match("@^\./*+@",$imgSrc)){
+            $bt=debug_backtrace();
+            $file=$bt[0]["file"]; //fichier qui a appelé la fonction
+            $dir=dirname($file);//répertoire de ce fichier
+            $dir=preg_replace("@^".preg_quote(getcwd())."@","",$dir); //vire le chemin complet
+            $dir=str_replace("\\","/",$dir);
+            //chemin vers l'image
+            $imgSrc=preg_replace("@^\./@",$dir."/",$imgSrc);
+            $imgSrc=trim($imgSrc,"/");
+        }
         return ImgUrlHtml::inst($imgSrc);
     }
 
