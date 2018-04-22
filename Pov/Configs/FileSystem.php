@@ -170,9 +170,17 @@ class FileSystem {
      * @param string $databaseName Le nom de la base de données
      * @return string l'identifiant qui ressemblera à sqlite:files/my-project-dir/db/$databaseName.db
      */
-    public function dbSqlLitePath($databaseName)
+    public function dbSqlLitePath($databaseName,$backupSuffix=null)
     {
-        return "sqlite:$this->dbPath/$databaseName.db";
+        if($backupSuffix===null){
+            $backupSuffix="bcp-".date("Y-m-d");
+        }
+        $dbFile=$this->dbPath."/$databaseName.db";
+        $bcpFile=$this->dbPath."/$databaseName.$backupSuffix.db";
+        if(file_exists($dbFile) && is_file($dbFile) && !file_exists($bcpFile)){
+            copy($dbFile,$bcpFile);
+        }
+        return "sqlite:$dbFile";
     }
 
     /**
