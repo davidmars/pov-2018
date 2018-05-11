@@ -37,11 +37,12 @@ class C_default extends Controller{
     ];
 
     /**
-     * La page d'index
+     * La page d'index (ou une page sous l'index si le paramètre $url est spécifié)
+     * @param string $url
      * @return ControllerUrl
      */
-    public static function index_url(){
-        return new ControllerUrl("");
+    public static function index_url($url=""){
+        return new ControllerUrl($url);
     }
 
     /**
