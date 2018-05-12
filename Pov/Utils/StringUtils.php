@@ -124,4 +124,40 @@ class StringUtils extends AbstractSingleton {
     }
     private $lorem=[];
 
+
+    /**
+     * According the value of count will return one of the 3 possibles values.
+     * Tip: In the sentence the string xxxCountxxx will be replaced with the count of the array
+     * @param int|array $count Number to determine plural or not
+     * @param string $ifOne
+     * @param string $ifMoreThanOne If not set, will be $ifOne with an "S" at the end
+     * @param string $ifZero If not set will be equal to $ifMoreThanOne
+     * @return string
+     */
+    public function plural($count, $ifOne,$ifMoreThanOne=null,  $ifZero=null)
+    {
+        if(is_array($count)){
+            $count=count($count);
+        }
+        if(!$ifMoreThanOne){
+            $ifMoreThanOne=$ifOne."s";
+        }
+        if(!$ifZero){
+            $ifZero=$ifMoreThanOne;
+        }
+        switch(true){
+            case $count=="0":
+                $r= $ifZero;
+                break;
+            case $count=="1":
+                $r= $ifOne;
+                break;
+            default:
+                $r= $ifMoreThanOne;
+        }
+
+        $r=str_replace("xxxCountxxx",$count,$r);
+        return $r;
+    }
+
 }
