@@ -17,6 +17,10 @@ class Installer
         if(!file_exists(".htaccess")){
             copy(__DIR__."/../_install/.htaccess",".htaccess");
         }
+        //copier le favicon.ico à la racine
+        if(!file_exists("favicon.ico")){
+            copy(__DIR__."/../_install/favicon.ico","favicon.ico");
+        }
         //copie le fichier index.php à la racine
         if(!file_exists("index.php")){
             copy(__DIR__."/../_install/index.php","index.php");
