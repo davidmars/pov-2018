@@ -9,6 +9,7 @@
 namespace Pov\Utils;
 
 
+use Pov\Pov;
 use Pov\PovException;
 use Pov\System\AbstractSingleton;
 
@@ -29,7 +30,7 @@ class ColorUtils extends AbstractSingleton
     {
 
         if($pseudoRandString){
-            $rand=pov()->utils->math->randFromString($pseudoRandString,0,360);
+            $rand=Pov::inst()->utils->math->randFromString($pseudoRandString,0,360);
         }else{
             $rand=rand(0,360);
         }
@@ -48,17 +49,17 @@ class ColorUtils extends AbstractSingleton
     {
 
         if($pseudoRandString){
-            $hue=pov()->utils->math->randFromString($pseudoRandString,0,360);
+            $hue=Pov::inst()->utils->math->randFromString($pseudoRandString,0,360);
         }else{
             $hue=rand(0,360);
         }
         if($pseudoRandString){
-            $saturation=pov()->utils->math->randFromString($pseudoRandString."something",0,100);
+            $saturation=Pov::inst()->utils->math->randFromString($pseudoRandString."something",0,100);
         }else{
             $hue=rand(0,100);
         }
         if($pseudoRandString){
-            $luminance=pov()->utils->math->randFromString($pseudoRandString."somethingelse",0,100);
+            $luminance=Pov::inst()->utils->math->randFromString($pseudoRandString."somethingelse",0,100);
         }else{
             $luminance=rand(0,100);
         }

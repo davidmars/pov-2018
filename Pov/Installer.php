@@ -3,7 +3,9 @@
 namespace Pov;
 
 
+use Pov\Utils\ColorUtils;
 use Pov\Utils\StringUtils;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class Installer
 {
@@ -17,9 +19,21 @@ class Installer
         if(!file_exists(".htaccess")){
             copy(__DIR__."/../_install/.htaccess",".htaccess");
         }
-        //copier le favicon.ico à la racine
+        //crée favicon.ico à la racine (random)
         if(!file_exists("favicon.ico")){
-            copy(__DIR__."/../_install/favicon.ico","favicon.ico");
+            $color1=ColorUtils::inst()->randHex(1,0.3,rand(0,99999));
+            define("ccc",ColorUtils::inst()->randHex(1,0.6,rand(0,99999)));
+            // create empty canvas with background color
+            $img = Image::canvas(16, 16, "$color1");
+            for($i=0;$i<16;$i+=2){
+                $img->line($i, 0, $i, 16, function (
+                    $draw) {
+                    $draw->color("#".ccc);
+                    }
+                );
+            }
+            $img->save("favicon.png");
+            rename("favicon.png","favicon.ico");
         }
         //copie le fichier index.php à la racine
         if(!file_exists("index.php")){
