@@ -308,7 +308,9 @@ class Boot {
         }
 
         //répertoires
-        $p->viewPath[]=$projectDirectory."/v";
+        if(is_dir($projectDirectory."/v")){
+            $p->viewPath[]=$projectDirectory."/v";
+        }
         if(is_dir($projectDirectory."/_src")){
             $p->viewPath[]=$projectDirectory."/_src";
         }
