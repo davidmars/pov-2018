@@ -41,6 +41,11 @@ class Project {
     public $pubHttp;
 
     /**
+     * @var string code iso de la langue
+     */
+    public $langCode="fr";
+
+    /**
      * Ajoute une règle de routage à la fin de la liste.
      * @param string $regRule une regexp ex: "^p/(.*)$"
      * @param string $controller Le controller qui en résulte. ex "blog/post/($1)"
