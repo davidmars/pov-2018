@@ -265,14 +265,17 @@ export default class PovApi{
         let url=LayoutVars.rootUrl+"/povApi/getView";
         datas["viewPath"]=viewPath;
         datas["isAjax"]=true;
-        /**
-         * @type {string}
-          */
-        let refreshSelector=$toReplace.attr("pov-v-dom-selector");
-        if(refreshSelector){
-            $toReplace=$toReplace.evalHere(refreshSelector);
+        if($toReplace){
+            /**
+             * @type {string}
+             */
+            let refreshSelector=$toReplace.attr("pov-v-dom-selector");
+            if(refreshSelector){
+                $toReplace=$toReplace.evalHere(refreshSelector);
+            }
+            $toReplace.addClass("pov-api-refreshing");
         }
-        $toReplace.addClass("pov-api-refreshing");
+
         //$toReplace.empty();
         $.ajax({
             dataType: "json",
@@ -283,18 +286,24 @@ export default class PovApi{
             success: function(result){
                 if(result.success){
                     let $repl=$(result.html);
-                    if($toReplace.attr("data-pov-refresh-method")==="html"){
-                        $toReplace.html($repl);
-                        $toReplace.removeClass("pov-api-refreshing");
-                    }else{
-                        $toReplace.replaceWith($repl);
+                    if($toReplace){
+                        if($toReplace.attr("data-pov-refresh-method")==="html"){
+                            $toReplace.html($repl);
+                            $toReplace.removeClass("pov-api-refreshing");
+                        }else{
+                            $toReplace.replaceWith($repl);
+                        }
                     }
+
                     Pov.events.dispatchDom($repl,Pov.events.DOM_CHANGE);
                     if(cb){
                         cb($repl);
                     }
                 }else{
-                    Pov.events.dispatchDom($toReplace,PovApi.EVENT_ERROR);
+                    if($toReplace){
+                        Pov.events.dispatchDom($toReplace,PovApi.EVENT_ERROR);
+                    }
+
                     console.error(result);
                 }
             },
