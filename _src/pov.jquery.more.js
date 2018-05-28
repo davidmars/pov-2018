@@ -66,7 +66,7 @@
                 cb=function(){
                     $(focusSelector).focus();
                     var elem=$(focusSelector)[0];
-                    if (elem.setSelectionRange && /text|search|password|tel|url/i.test(elem.type || '')) {
+                    if (elem && elem.setSelectionRange && /text|search|password|tel|url/i.test(elem.type || '')) {
                         elem.setSelectionRange(focusPos,focusPos);
                     }
 
