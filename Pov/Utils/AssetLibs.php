@@ -45,10 +45,16 @@ class AssetLibs extends AbstractSingleton
 
     /**
      * Installe Google Map api
+     *
      * @param string $apiKey
+     * @param string $libraries les librairies googlemap à ajouter exemple (geometry,places)
      */
-    public function googleMap($apiKey){
-       the()->htmlLayout()->addJsToFooter("https://maps.googleapis.com/maps/api/js?key=$apiKey");
+    public function googleMap($apiKey,$libraries=""){
+        $u="https://maps.googleapis.com/maps/api/js?key=$apiKey";
+        if($libraries){
+            $u.="&libraries=$libraries";
+        }
+       the()->htmlLayout()->addJsToFooter($u);
     }
 
 

@@ -60,7 +60,12 @@
             console.log("refresh...",$el);
             let $focused=$el.find(":focus");
             if($focused.length>0 && !$focused.is("[refresh-dont-care-focus='true']")){
-                console.log("focus détecté",$el);
+                //si le focus est ou est dans un .focus-prevent-refresh alors on ne fait rien
+                if($focused.is("[focus-prevent-refresh],[focus-prevent-refresh] *")){
+                    console.log("[focus-prevent-refresh]");
+                    return;
+                }
+                console.log("focus détecté");
                 focusPos = $focused[0].selectionStart;
                 focusSelector=$focused[0].tagName+"[wysiwyg-var='"+$focused.attr("wysiwyg-var")+"'][wysiwyg-id='"+$focused.attr("wysiwyg-id")+"'][wysiwyg-type='"+$focused.attr("wysiwyg-type")+"']";
                 cb=function(){
