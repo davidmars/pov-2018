@@ -51,35 +51,24 @@
         //console.log("will refresh...");
 
         /**
-         * @param {JQuery} $el
+         * @param {JQuery} $el element DOM unique qui sera rafraichit
          */
         function doIt($el){
-            var focusPos=0;
-            var focusSelector=null;
-            var focusType=null;
-            console.log("refresh...",$el);
+            //element toujours dans le DOM?
+            if (!jQuery.contains(document, $el[0])) {
+                return;
+            }
+            //teste si l'élément n'a pas le focus
             let $focused=$el.find(":focus");
             if($focused.length>0 && !$focused.is("[refresh-dont-care-focus='true']")){
-                //si le focus est ou est dans un .focus-prevent-refresh alors on ne fait rien
-                if($focused.is("[focus-prevent-refresh],[focus-prevent-refresh] *")){
-                    console.log("[focus-prevent-refresh]");
+                //si le focus est ou est dans un .focus-prevent-refresh  ou que c'est un champ texte alors on retentera plus tard
+                if($focused.is("[focus-prevent-refresh],[focus-prevent-refresh] *,textarea,[type='text'],[type='search'],[type='password'],[type='tel'],[type='url']")){
+                    //console.warn("focus-prevent-refresh",$focused);
+                    setTimeout(function(){
+                        doIt($el); //on va réessayer plus tard
+                    },1000)
                     return;
                 }
-                console.log("focus détecté");
-                focusPos = $focused[0].selectionStart;
-                focusSelector=$focused[0].tagName+"[wysiwyg-var='"+$focused.attr("wysiwyg-var")+"'][wysiwyg-id='"+$focused.attr("wysiwyg-id")+"'][wysiwyg-type='"+$focused.attr("wysiwyg-type")+"']";
-                cb=function(){
-                    $(focusSelector).focus();
-                    var elem=$(focusSelector)[0];
-                    if (elem && elem.setSelectionRange && /text|search|password|tel|url/i.test(elem.type || '')) {
-                        elem.setSelectionRange(focusPos,focusPos);
-                    }
-
-                    if(cb){
-                        //cb(); todo important checker ce cb recursif de merde
-                        //cb(); todo important faire une loading plus joli que ce clignotement foireux
-                    }
-                };
             }
             var view=$el.attr("data-pov-v-path");
             var uid=$el.attr("data-pov-vv-uid");
