@@ -155,6 +155,19 @@ class Layout {
      */
     public $hreflang="fr";
 
+    /**
+     * Ajoute à layoutVars les traductions marquées comme javascript = 1
+     */
+    public function addJavascriptTranslations(){
+        $translations=[];
+        foreach (the()->project->translations() as $k=>$v){
+            if($v->javascript){
+                $translations[$k]=the()->project->translation($k);
+            }
+        }
+        $this->layoutVars->translations=$translations;
+    }
+
 
 
 

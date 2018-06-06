@@ -51,6 +51,69 @@ class Project {
     public $languages=[];
 
     /**
+     * @var string url du csv des traductions
+     */
+    public $config_translations_csv_url="https://docs.google.com/spreadsheets/d/1m_vi4YTj2vAMwaJxvGWRIeJP4F9IOhE_FMftjruiDz0/export?gid=0&format=csv";
+    /**
+     * @var array Tableau de cache où se trouvent les traductions
+     */
+    private $_translations=[];
+
+    public function translations(){
+        if(!$this->_translations){
+            $jsonCache=the()->fileSystem->cachePath."/translations-".md5($this->config_translations_csv_url).".json";
+            $csvCache=the()->fileSystem->cachePath."/translations-".md5($this->config_translations_csv_url).".csv";
+            $delimiter=",";
+            $utf8encode=false;
+            $spreadsheetData=[];
+            if(!file_exists($jsonCache)){
+                copy($this->config_translations_csv_url,$csvCache);
+                if (($handle = fopen($csvCache, "r")) !== FALSE) {
+                    while (($data = fgetcsv($handle, null, $delimiter)) !== FALSE) {
+                        if($utf8encode){
+                            $data = array_map("utf8_encode", $data); //added
+                        }
+                        $spreadsheetData[]=$data;
+                    }
+                }
+                /** @var array $langues La liste des langues*/
+                $langues=array_shift($spreadsheetData);
+                //convertit le csv en json
+                $obj=[];
+                foreach ($spreadsheetData as $line){
+                    $obj[$line[0]]=[];
+                    for($c=1;$c<count($langues);$c++){
+                        $value="";
+                        if(isset($line[$c])){
+                            $value=trim($line[$c]);
+                        }
+                        $obj[$line[0]][$langues[$c]]=$value;
+                    }
+                }
+                file_put_contents($jsonCache,json_encode($obj,JSON_PRETTY_PRINT));
+            }
+            $this->_translations=json_decode(file_get_contents($jsonCache));
+        }
+        return $this->_translations;
+    }
+    /**
+     * Renvoie un terme traduit
+     * @see https://docs.google.com/spreadsheets/d/1m_vi4YTj2vAMwaJxvGWRIeJP4F9IOhE_FMftjruiDz0/edit#gid=0
+     * @see $config_translations_csv_url
+     * @param string $termsIdentifier
+     * @return string
+     */
+    public function translation($termsIdentifier){
+        $trads=$this->translations();
+        if(isset($trads->{$termsIdentifier}->{the()->project->langCode})){
+            return $trads->{$termsIdentifier}->{the()->project->langCode};
+        }else{
+            return $termsIdentifier;
+        }
+
+    }
+
+    /**
      * Ajoute une règle de routage à la fin de la liste.
      * @param string $regRule une regexp ex: "^p/(.*)$"
      * @param string $controller Le controller qui en résulte. ex "blog/post/($1)"
