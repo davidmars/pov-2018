@@ -46,6 +46,11 @@ class Project {
     public $langCode="fr";
 
     /**
+     * @var string[] liste des langues (codes) à gérer
+     */
+    public $languages=[];
+
+    /**
      * Ajoute une règle de routage à la fin de la liste.
      * @param string $regRule une regexp ex: "^p/(.*)$"
      * @param string $controller Le controller qui en résulte. ex "blog/post/($1)"
