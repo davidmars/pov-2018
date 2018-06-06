@@ -55,6 +55,10 @@ class Project {
      */
     public $config_translations_csv_url="https://docs.google.com/spreadsheets/d/1m_vi4YTj2vAMwaJxvGWRIeJP4F9IOhE_FMftjruiDz0/export?gid=0&format=csv";
     /**
+     * @var bool Quand défini sur true les traductions sont mises à jour depuis le csv sans tenir compte du cache
+     */
+    public $config_translations_debug=false;
+    /**
      * @var array Tableau de cache où se trouvent les traductions
      */
     private $_translations=[];
@@ -66,7 +70,7 @@ class Project {
             $delimiter=",";
             $utf8encode=false;
             $spreadsheetData=[];
-            if(!file_exists($jsonCache)){
+            if(!file_exists($jsonCache) || $this->config_translations_debug){
                 copy($this->config_translations_csv_url,$csvCache);
                 if (($handle = fopen($csvCache, "r")) !== FALSE) {
                     while (($data = fgetcsv($handle, null, $delimiter)) !== FALSE) {
@@ -104,6 +108,9 @@ class Project {
      * @return string
      */
     public function translation($termsIdentifier){
+        if(!$termsIdentifier){
+            return "nothing to translate!!!";
+        }
         $trads=$this->translations();
         if(isset($trads->{$termsIdentifier}->{the()->project->langCode})){
             return $trads->{$termsIdentifier}->{the()->project->langCode};
