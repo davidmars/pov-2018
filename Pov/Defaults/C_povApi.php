@@ -91,7 +91,7 @@ class C_povApi extends Controller
         ini_set('mysql.connect_timeout','7200');
         ini_set('max_execution_time', '0');
 
-        ob_end_clean();
+        @ob_end_clean();//notice si le flux est vide
         gc_enable();
 
         header('Content-Type: text/event-stream');
@@ -109,7 +109,6 @@ class C_povApi extends Controller
 
         $shouldRestart=false;
         $i=0;
-
 
         while( true){
 
