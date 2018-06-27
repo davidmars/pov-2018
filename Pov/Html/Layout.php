@@ -142,6 +142,22 @@ class Layout {
      */
     public $ogImage="";
     /**
+     * @var string largeur de l'image
+     */
+    public $ogImageWidth="";
+    /**
+     * @var string hauteur de l'image
+     */
+    public $ogImageHeight="";
+    /**
+     * @var string Latitude
+     */
+    public $ogLatitude="";
+    /**
+     * @var string longitude
+     */
+    public $ogLongitude="";
+    /**
      * @var string voir https://developers.facebook.com/docs/reference/opengraph#object-type
      */
     public $ogType="article";

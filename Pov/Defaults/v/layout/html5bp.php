@@ -63,12 +63,22 @@ if(!is_a($vv,"Pov\Html\Layout")){
 //----OpenGraph (facebook mainly)--
 ?>
 <?if($vv->ogImage):?>
-<meta property="og:image" content="<?php echo $vv->ogImage?>">
+<meta property="og:image" content="<?php echo the()->configProjectUrl->absoluteUrl().$vv->ogImage?>">
 <meta name="twitter:image" content="<?php echo the()->configProjectUrl->absoluteUrl().$vv->ogImage?>" >
+<?if($vv->ogImageHeight && $vv->ogImageHeight):?>
+<meta property="og:image:width" content="<?php echo $vv->ogImageWidth?>">
+<meta property="og:image:height" content="<?php echo $vv->ogImageHeight?>">
+<?endif?>
 <?endif?>
 <?if($vv->ogType):?>
 <meta property="og:type" content="<?php echo $vv->ogType?>">
 <?endif?>
+<?if($vv->ogLatitude || $vv->ogLongitude):?>
+<meta property="place:location:latitude"  content="<?=$vv->ogLatitude?>" />
+<meta property="place:location:longitude" content="<?=$vv->ogLongitude?>" />
+<?endif?>
+
+
 <?
 //-------Favicons-------
 ?>
