@@ -70,6 +70,23 @@ class C_povApi extends Controller
     public function getView_run(){
         $vv=new ApiResponse();
         $v=$vv->testAndGetRequest("viewPath");
+        if($v){
+            //extrait les paramètre ?machin=truc
+            if(preg_match("/^(.*)\?(.*)$/",$v,$matches)){
+                $vv->addToJson("m",$matches);
+                parse_str($matches[2],$params);
+                if($params){
+                    $vv->addToJson("p",$params);
+                    $vv->addToJson("v",$v);
+                    foreach ($params as $k=>$v){
+                        $_REQUEST[$k]=$v;
+                    }
+                }
+                $_REQUEST['viewPath']=$v=$matches[1];
+            }
+        }
+
+        $vv->addToJson("vvvv",$v);
         $vvArgument=the()->request("vv"); //pratique pour faire passer des params à la vue via javascript
         pov()->events->dispatch(self::EVENT_GET_VIEW,[$vv]); //permet de définir un comportement personnalisé au besoin
         if($vv->success && !$vv->html){
