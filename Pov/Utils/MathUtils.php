@@ -30,4 +30,19 @@ class MathUtils extends AbstractSingleton
         return ( ($max - $min) * ($rando2 / 999999)) + $min;
     }
 
+    /**
+     * Return the input value according a given range translated to an other range.
+     * @param float $inputValue
+     * @param float $inputMax
+     * @param float $outputMax
+     * @param float $inputMin
+     * @param float $outputMin
+     * @return float
+     */
+    public function ratio($inputValue, $inputMax, $outputMax, $inputMin=.0, $outputMin=.0){
+        $product = ($inputValue - $inputMin) / ($inputMax - $inputMin);
+        $output = (($outputMax - $outputMin) * $product) + $outputMin;
+        return $output;
+    }
+
 }
