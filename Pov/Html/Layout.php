@@ -53,6 +53,11 @@ class Layout {
      */
     public $pageInfo;
 
+    /**
+     * @var string Url vers où on sera redirigé en js si définie
+     */
+    public $redirectJS="";
+
 
     public function __construct(){
         $this->meta=new Meta();

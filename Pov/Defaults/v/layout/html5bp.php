@@ -7,8 +7,6 @@ use Pov\Html\Layout;
 if(!is_a($vv,"Pov\Html\Layout")){
     throw new Exception("La layout fonctionne avec un objet de type 'Pov\Html\Layout', mais ici vous utilisez un ".pov()->debug->type($vv));
 }
-
-
 ?>
 <!doctype html>
 <!--[if lt IE 7 ]>      <html lang="<?=$vv->meta->langCode ?>" class="no-js ie6" xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml"> <![endif]-->
@@ -17,6 +15,11 @@ if(!is_a($vv,"Pov\Html\Layout")){
 <!--[if gt IE 8]><!-->
 <html lang="<?=$vv->meta->langCode ?>" class="no-js" xmlns:og="http://opengraphprotocol.org/schema/"> <!--<![endif]-->
 <head>
+<?if($vv->redirectJS):?>
+<script>
+    document.location="<?=$vv->redirectJS?>";
+</script>
+<?endif;?>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title><?=$vv->meta->title?></title>
 <meta name="twitter:card" content="summary" >
