@@ -207,13 +207,20 @@ class ImgUrl
     }
 
     /**
+     * Pour obtenir l'url finale de l'image
+     * @param bool $absolute Mettre true pour avoir une url absolue
      * @return string pour obtenir l'url finale de l'image
      */
-    public function href(){
+    public function href($absolute=false){
         if($this->_preserveGif && $this->isGif()){
-            return the()->fmkHttpRoot."/".$this->__toString();
+            $r= the()->fmkHttpRoot."/".$this->__toString();
         }else{
-            return the()->fmkHttpRoot."/".the()->fileSystem->cachePath."/".$this->__toString();
+            $r= the()->fmkHttpRoot."/".the()->fileSystem->cachePath."/".$this->__toString();
+        }
+        if($absolute){
+            return the()->requestUrl->httpScheme."://".the()->requestUrl->host.$r;
+        }else{
+            return $r;
         }
 
     }
