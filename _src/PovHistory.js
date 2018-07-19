@@ -12,18 +12,21 @@ export default class PovHistory{
     static init(){
         let me=this;
         //initialise les href qui sont dans un [history-hrefs]
-        $body.on("click","[history-hrefs] a",function(e){
+        $body.on("click","[history-hrefs] [href]",function(e){
             let $href=$(this);
+            let url=$href.attr("href");
+
             if($href.is("[href^='#']")){
                 e.isAnchorClick=true;
                 return;
             }
             if(me.isHrefHistory($href)){
-                me.goUrl($href.attr('href'),$href,e);
+                me.goUrl(url,$href,e);
                 e.preventDefault();
                 return false;
             }else{
                 console.log("PovHistory","lien non compatible");
+                e.stopPropagation();
             }
         });
         window.onpopstate=function(event){
