@@ -74,6 +74,7 @@ class ApiResponse {
      */
     public function addMessage($message){
         $this->messages[]=$message;
+        $this->messages=array_unique($this->messages);
     }
 
 
