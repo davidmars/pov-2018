@@ -131,10 +131,14 @@ class The extends AbstractSingleton {
     /**
      * Ce numéro de version vient du fichier apps/mon-projet/version.txt.
      * Il est généré par défaut cependant il est fortement recommandé de le mettre à jour à chaque changement JS ou CSS afin de contourner les caches.
+     * @param null|string $toSetVersion si vous voulez déterminer la version faites le là, sinon ce sera la version du fichier texte qui sera utilisée
      * @return string un numéro de version.
      */
-    public function version()
+    public function version($toSetVersion=null)
     {
+        if($toSetVersion){
+            self::$_version=$toSetVersion;
+        }
         if(!self::$_version){
 
             $versionFile=the()->project->versionFilePath;
@@ -148,6 +152,7 @@ class The extends AbstractSingleton {
         }
         return self::$_version;
     }
+    
 
     /**
      * @var string
