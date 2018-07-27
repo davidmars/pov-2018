@@ -276,7 +276,8 @@ class FileSystem {
     function filesystemToHttp($localPath){
         $r=preg_replace("%^".preg_quote(getcwd())."%","",$localPath);
         $r=str_replace("\\","/",$r);
-        $r=the()->fmkHttpRoot.$r;
+        $r=trim($r,"/");
+        $r=the()->fmkHttpRoot."/".$r;
         return $r;
     }
 
