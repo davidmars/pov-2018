@@ -108,6 +108,11 @@ if(!is_a($vv,"Pov\Html\Layout")){
 <meta name="msapplication-navbutton-color" content="<?=$vv->meta->themeColor?>">
 <meta name="apple-mobile-web-app-status-bar-style" content="<?=$vv->meta->themeColor?>">
 <?endif?>
+<?if($vv->webAppManifest):?>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="<?=$vv->webAppManifest?>">
+<?endif?>
 <?/*
  *
  *

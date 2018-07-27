@@ -189,6 +189,12 @@ class Layout {
         $this->layoutVars->translations=$translations;
     }
 
+    /**
+     * @var string url du manifest.json
+     * @see https://developers.google.com/web/fundamentals/web-app-manifest/
+     */
+    public $webAppManifest="";
+
 
 
 
