@@ -1,6 +1,7 @@
 <?php
 
 namespace Pov\Configs;
+use Pov\PovException;
 
 
 /**
@@ -71,7 +72,16 @@ class Project {
             $utf8encode=false;
             $spreadsheetData=[];
             if(!file_exists($jsonCache) || $this->config_translations_debug){
-                copy($this->config_translations_csv_url,$csvCache);
+
+                @$ok=copy($this->config_translations_csv_url,$csvCache);
+                if(!$ok){
+                    $m="Problème pour copier le csv de traductions $this->config_translations_csv_url. ";
+                    if($this->config_translations_debug){
+                        $m.="<br>Essayez <code>the()->project->config_translations_debug=false</code>.";
+                    }
+                    $m.="<br>Le fichier n'est peut être pas accessible ou vous n'y avez pas accès";
+                    throw new PovException($m);
+                }
                 if (($handle = fopen($csvCache, "r")) !== FALSE) {
                     while (($data = fgetcsv($handle, null, $delimiter)) !== FALSE) {
                         if($utf8encode){
