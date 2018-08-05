@@ -50,6 +50,10 @@ class Project {
      * @var string[] liste des langues (codes) à gérer
      */
     public $languages=[];
+    /**
+     * @var string[] liste des urls index pour chaque langue, les entrées sont les langcodes, les valeurs sont les urls
+     */
+    public $languagesUrls=[];
 
     /**
      * @var string url du csv des traductions

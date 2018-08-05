@@ -43,12 +43,18 @@ if(!is_a($vv,"Pov\Html\Layout")){
 //----------languages---
 ?>
 <link rel="canonical" href="<?=the()->requestUrl->fullUrl?>">
-<link rel="alternate" href="<?=the()->requestUrl->fullUrl?>" hreflang="<?=$vv->hreflang?>"/>
-<?/*
-<?foreach(theProject()->hosts() as $h):?>
-<link rel="alternate" hreflang="<?=$h->language->langCode?>" href="<?=$h->getUrl(ThePage::currentUrl())?>" />
+
+<?if(the()->project->languagesUrls):?>
+<?foreach(the()->project->languagesUrls as $lang=>$url):?>
+<link rel="alternate" hreflang="<?=$lang?>" href="<?=$url?>" />
 <?endforeach?>
-*/?>
+<?else:?>
+<link rel="alternate" hreflang="<?=$vv->hreflang?>" href="<?=the()->requestUrl->fullUrl?>"/>
+<?endif;?>
+
+
+
+
 <?
 //IE We love you---
 ?>
