@@ -5,6 +5,7 @@ namespace Pov\Defaults;
 use Pov\MVC\Controller;
 use Pov\MVC\ControllerUrl;
 use Pov\MVC\View;
+use Pov\PovException;
 use Pov\System\ApiResponse;
 use Pov\System\Header;
 
@@ -32,6 +33,7 @@ class C_default extends Controller{
     public static $routesRules=[
       "^$"=>"default/index",
       "^favicon.ico$"=>"default/favicon",
+      "^dwd/(.*)/(.*)$"=>"default/dwd/$1/$2",
       "^v/(.*)$"=>"default/quickView/($1)", // le ($1) dit que les slashes à l'intérieur de la parenthèse sont préservés (toto/titi) ne donnera pas deux arguments mais un seul
       "^(.*)$"=>"default/err404",
     ];
@@ -108,4 +110,55 @@ class C_default extends Controller{
             the()->headerOutput->set404("no favicon");
         }
     }
+
+    /**
+     * @var string Clé d'encryptage (à modifier pour chaque site) pour s'assurer que le fichier téléchargé est bien passé par le controlleur
+     */
+    public static $_secure_download_key="12345azertyuiop";
+
+    /**
+     * Pour télécharger un fichier (force le dwd et sécurise l'url)
+     * @param string $fileUrl url du fichier à télécharger
+     * @return ControllerUrl
+     */
+    public static function dwd_url($fileUrl){
+        $md5token=md5($fileUrl.self::$_secure_download_key);
+        return new ControllerUrl("dwd/".base64_encode($fileUrl)."/$md5token");
+    }
+
+    /**
+     * @param string $fileUrl64
+     * @param string $md5token Token pour vérifier que le téléchargement est autorisé via le controlleur
+     * @throws PovException
+     */
+    public function dwd_run($fileUrl64,$md5token){
+        $fileUrl=base64_decode($fileUrl64);
+        if(!file_exists($fileUrl)){
+            throw new PovException("download error 1");
+        }
+        $md5tokenVerif=md5($fileUrl.self::$_secure_download_key);
+        if($md5tokenVerif != $md5token){
+            throw new PovException("download error 2");
+        }
+        if(preg_match("/\.php$/",$fileUrl)){
+            throw new PovException("download error 3");
+        }
+
+        $quoted = sprintf('"%s"', addcslashes(basename($fileUrl), '"\\'));
+        $size   = filesize($fileUrl);
+
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename=' . $quoted);
+        header('Content-Transfer-Encoding: binary');
+        header('Connection: Keep-Alive');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Pragma: public');
+        header('Content-Length: ' . $size);
+        readfile($fileUrl);
+        die();
+
+    }
+
 } 
