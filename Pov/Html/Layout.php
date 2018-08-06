@@ -175,6 +175,10 @@ class Layout {
      * @var string code linguistiquye de la page (fr par défaut)
      */
     public $hreflang="fr";
+    /**
+     * @var string[] Les différentes urls de la page en fonction des codes linguistique. Les clés sont les langCodes.
+     */
+    public $hreflangs=[];
 
     /**
      * Ajoute à layoutVars les traductions marquées comme javascript = 1

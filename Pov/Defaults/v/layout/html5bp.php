@@ -15,48 +15,61 @@ if(!is_a($vv,"Pov\Html\Layout")){
 <!--[if gt IE 8]><!-->
 <html lang="<?=$vv->meta->langCode ?>" class="no-js" xmlns:og="http://opengraphprotocol.org/schema/"> <!--<![endif]-->
 <head>
-<?if($vv->redirectJS):?>
-<script>
-    document.location="<?=$vv->redirectJS?>";
-</script>
-<?endif;?>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<?
+
+//redirect javascript ?
+
+?>
+<?if($vv->redirectJS):?>
+<script>document.location="<?=$vv->redirectJS?>";</script>
+<?endif;?>
+<?
+
+//title, description etc...
+
+?>
 <title><?=$vv->meta->title?></title>
-<meta name="twitter:card" content="summary" >
-<meta property="og:title" content="<?=$vv->meta->title?>" />
-<meta name="twitter:title" content="<?=$vv->meta->title?>" >
-<meta property="og:url" content="<?= the()->requestUrl->fullUrl?>" />
 <meta name="description" content="<?=$vv->meta->description?>">
-<meta property="og:description" content="<?=$vv->meta->description?>" />
-<meta name="twitter:description" content="<?=$vv->meta->description?>" >
 <meta name="keywords" content="<?=$vv->meta->keywords?>">
+<meta name="twitter:card" content="summary" >
+<meta name="twitter:title" content="<?=$vv->meta->title?>" >
+<meta name="twitter:description" content="<?=$vv->meta->description?>" >
+<meta property="og:title" content="<?=$vv->meta->title?>" />
+<meta property="og:url" content="<?= the()->requestUrl->fullUrl?>" />
+<meta property="og:description" content="<?=$vv->meta->description?>" />
 <?if($vv->meta->author):?>
 <meta name="author" content="<?php echo $vv->meta->author?>">
 <?endif?>
+<?
+
+//Facebook API
+
+?>
 <?if($vv->facebookAppId):?>
 <meta property="fb:app_id" content="<?=$vv->facebookAppId?>"/>
 <?endif?>
+<?
+
+//google webmaster tools
+
+?>
 <?if($vv->googleSiteVerification):?>
 <meta name="google-site-verification" content="<?=$vv->googleSiteVerification?>" />
 <?endif?>
 <?
-//----------languages---
+
+//languages
+
 ?>
 <link rel="canonical" href="<?=the()->requestUrl->fullUrl?>">
-
-<?if(the()->project->languagesUrls):?>
-<?foreach(the()->project->languagesUrls as $lang=>$url):?>
+<?foreach($vv->hreflangs as $lang=>$url):?>
 <link rel="alternate" hreflang="<?=$lang?>" href="<?=$url?>" />
 <?endforeach?>
-<?else:?>
-<link rel="alternate" hreflang="<?=$vv->hreflang?>" href="<?=the()->requestUrl->fullUrl?>"/>
-<?endif;?>
-
-
-
-
 <?
+
 //IE We love you---
+
 ?>
 <!--[if IE]>
 <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1,requiresactivex=true">
@@ -64,32 +77,34 @@ if(!is_a($vv,"Pov\Html\Layout")){
 <![endif]-->
 <?
 
-//Mobile--
+//Mobile
 
 ?>
 <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 <?
-//----OpenGraph (facebook mainly)--
+
+//OpenGraph (facebook mainly)--
+
 ?>
 <?if($vv->ogImage):?>
-<meta property="og:image" content="<?php echo the()->configProjectUrl->absoluteUrl().$vv->ogImage?>">
-<meta name="twitter:image" content="<?php echo the()->configProjectUrl->absoluteUrl().$vv->ogImage?>" >
+<meta property="og:image" content="<?=the()->configProjectUrl->absoluteUrl().$vv->ogImage?>">
+<meta name="twitter:image" content="<?=the()->configProjectUrl->absoluteUrl().$vv->ogImage?>" >
 <?if($vv->ogImageHeight && $vv->ogImageHeight):?>
-<meta property="og:image:width" content="<?php echo $vv->ogImageWidth?>">
-<meta property="og:image:height" content="<?php echo $vv->ogImageHeight?>">
+<meta property="og:image:width" content="<?=$vv->ogImageWidth?>">
+<meta property="og:image:height" content="<?=$vv->ogImageHeight?>">
 <?endif?>
 <?endif?>
 <?if($vv->ogType):?>
-<meta property="og:type" content="<?php echo $vv->ogType?>">
+<meta property="og:type" content="<?=$vv->ogType?>">
 <?endif?>
 <?if($vv->ogLatitude || $vv->ogLongitude):?>
 <meta property="place:location:latitude"  content="<?=$vv->ogLatitude?>" />
 <meta property="place:location:longitude" content="<?=$vv->ogLongitude?>" />
 <?endif?>
-
-
 <?
+
 //-------Favicons-------
+
 ?>
 <?if($vv->favicon->icon144):?>
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo $vv->favicon->icon144?>">
@@ -107,25 +122,30 @@ if(!is_a($vv,"Pov\Html\Layout")){
 <link rel="shortcut icon" href="<?php echo $vv->favicon->favicon?>">
 <?endif;?>
 <?
-//-------themeColor-------
+
+//themeColor
+
 ?>
 <?if($vv->meta->themeColor):?>
 <meta name="theme-color" content="<?=$vv->meta->themeColor?>">
 <meta name="msapplication-navbutton-color" content="<?=$vv->meta->themeColor?>">
 <meta name="apple-mobile-web-app-status-bar-style" content="<?=$vv->meta->themeColor?>">
 <?endif?>
+<?
+
+//webapp
+
+?>
 <?if($vv->webAppManifest):?>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" href="<?=$vv->webAppManifest?>">
 <?endif?>
-<?/*
- *
- *
- * CSS & JS header....
- *
- *
- */?>
+<?
+
+//CSS & JS header....
+
+?>
 <?foreach($vv->cssHeaderFiles as $css):?>
 <?=$css->htmlTag()?>
 <?endforeach;?>
@@ -137,25 +157,26 @@ if(!is_a($vv,"Pov\Html\Layout")){
 <?endforeach;?>
 </head>
 <body>
-<?/*
- *
- *
- * page content
- *
- *
- */?>
+<?
+
+//------------------------------------BODY------------------------------
+
+
+?>
 <?=$view->insideContent?>
-
-
 </body>
+<?
+
+//------------------------------AFTER BODY------------------------------
+
+
+?>
 </html>
-<?/*
- *
- *
- * js scripts here...
- *
- *
- */?>
+<?
+
+// JSON LayoutVars....
+
+?>
 <script>
 <?
 $vv->layoutVars->assets=[];
@@ -172,6 +193,11 @@ var LayoutVars=<?=json_encode($vv->layoutVars)?>;
 var pageInfo=<?=json_encode($vv->pageInfo)?>;
 var meta=<?=json_encode($vv->meta)?>;
 </script>
+<?
+
+//JS & CSS footer....
+
+?>
 <?foreach($vv->cssFooterFiles as $css):?>
 <?=$css->htmlTag()?>
 <?endforeach;?>
