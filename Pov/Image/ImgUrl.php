@@ -162,6 +162,7 @@ class ImgUrl
     }
 
     public function bgColor($color="FF0000"){
+        $color=trim($color,"#");
         if(!$color){
             $color="transparent";
         }
