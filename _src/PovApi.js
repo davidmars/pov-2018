@@ -124,6 +124,125 @@ export default class PovApi{
     }
 
     /**
+     * Upload un fichier en passant par l'api et en le découpant
+     * @param {File} file
+     * @param {function} cbProgress Renvoie la progression sous forme de : pourcentage, bytesuploadés, bytesTotaux
+     * @param {function} cbComplete Renvoie un ApiReturn avec le fichier
+     * @param {function} cbError Renvoie un ApiReturn avec les erreurs
+     */
+    static uploadChuncked(file,cbProgress,cbComplete,cbError){
+        let uploadUrl = LayoutVars.rootUrl+"/povApi/upload";
+
+        //--------------1 va tester si le fichier existe déjà----------------
+        var reader = new FileReader();
+        reader.readAsBinaryString(file);
+        function testFileIdentifier(binary){
+            let localFileIdentifier=md5(binary);
+            let url=uploadUrl;
+            $.ajax({
+                dataType: "json",
+                url: uploadUrl,
+                method:"get",
+                data: {fileIdentifier:localFileIdentifier},
+                cache:false,
+                success: function(result){
+                    if(result.success){
+                        console.log("success fileidentifier",result);
+                        cbComplete(result);
+                    }else{
+                        console.log("error fileidentifier",result);
+                        doUpload();
+                    }
+                },
+                error:function(response){
+                    console.error("oups testFileIdentifier",response);
+                    if(response.responseText){
+                        Xdebug.fromString(response.responseText)
+                    }
+                    cbError(response);
+                }
+            });
+        }
+        reader.onloadend = function (evt) {
+            let binary = evt.target.result;
+            testFileIdentifier(binary);
+        };
+
+
+        //-----------------2 l'upload---------------------------------
+
+        function doUpload(){
+            processFile();
+            var size, filename, filenametmp;
+            function processFile(e) {
+                filename=file.name;
+                filenametmp=""+new Date().getTime()+file.name;
+                size = file.size;
+                var sliceSize = 1048576; // 1MB chunk sizes.;
+                var start = 0;
+                setTimeout(loop, 1);
+                function loop() {
+                    var end = start + sliceSize;
+                    if (size - end < 0) {
+                        end = size;
+                    }
+                    var s = slice(file, start, end);
+                    sendChunck(s, start, end,function(json){
+                        if (end < size) {
+                            start += sliceSize;
+                            setTimeout(function(){
+                                loop();
+                            },1000);
+                        }else{
+                            cbComplete(json);
+                        }
+                    });
+                }
+            }
+
+            function sendChunck(piece, start, end,cbNextChunk) {
+                var formdata = new FormData();
+                var xhr = new XMLHttpRequest();
+                var apiurl=uploadUrl+"?";
+                apiurl+="filename="+filename+"&";
+                apiurl+="filenametmp="+filenametmp+"&";
+                apiurl+="size="+size+"&";
+                apiurl+="end="+end+"&";
+                xhr.open('POST',apiurl,true);
+                formdata.append('chunck', piece);
+                xhr.addEventListener("error", function(){
+                    alert("error upload 1");
+                    console.error("error upload 1")
+                    let json=JSON.parse(xhr.response);
+                    cbError(json)
+                }, false);
+                xhr.onload = function(e) {
+                    let percentage=Math.floor(100/size*end);
+                    let json=JSON.parse(xhr.response);
+                    console.log("upload recieve ",filename,""+percentage+"%",e);
+                    cbProgress(percentage,end,size);
+                    cbNextChunk(json);
+                };
+                xhr.send(formdata);
+                console.log("upload send ",filename,""+Math.floor(100/size*start)+"%");
+            }
+            /**
+             * Formalize file.slice
+             */
+            function slice(file, start, end) {
+                var slice = file.mozSlice ? file.mozSlice :
+                    file.webkitSlice ? file.webkitSlice :
+                        file.slice ? file.slice : noop;
+
+                return slice.bind(file)(start, end);
+            }
+            function noop() {}
+        }
+
+
+    }
+
+    /**
      * Upload un fichier en passant par l'api
      * @param {File} file
      * @param {function} cbProgress Renvoie la progression sous forme de : pourcentage, bytesuploadés, bytesTotaux
@@ -233,16 +352,7 @@ export default class PovApi{
 
                     var binary = evt.target.result;
                     testFileIdentifier();
-
-
-
-
-
-
-
                 };
-
-
             }
         );
         return promise;
