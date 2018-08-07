@@ -1,9 +1,9 @@
 # pov-2018
 work in progress
 
-##pov.jquery.more
+## pov.jquery.more
 
-###POV only
+### POV only
 Méthodes dépendantes du framework PHP
 
 #### $(element).povRefresh(cb);
@@ -18,16 +18,16 @@ L'attribut `data-pov-v-uid` est optionel, il permet d'envoyer le paramètre `uid
 </div>
 ```
 
-**Attention**
+** Attention**
 Si l'élément qu'on souhaite rafraichir a un champ texte et que cet élément a le focus,
 alors le template ne sera rafraichit qu'une fois le focus retiré. 
 Cette règle ergonomique évite qu'un utilisateur ne perde le focus quand il saisit du texte.
 
 
-###Utilitaires
+### Utilitaires
 Méthodes sans icidences directes sur le framework.
 
-####$(element).removeClassPrefix('color-')
+#### $(element).removeClassPrefix('color-')
 Per met de supprimer toutes les classes css qui commencenet par "color-"
 
 
@@ -42,18 +42,18 @@ if($(element).isInViewport()){
     $(element).removeClass("affiche-moi")
 }
 ```
-#####Exemple concrêt
+##### Exemple concrêt
 
 Les exemples de codes suivants permettent de masquer les éléments DOM .visible-in-viewport
 
-######HTML
+###### HTML
 ```html
 <div class="visible-in-viewport">
     <div>Lot of stuff hard to display</div>
 </div>
 ```
 
-######Less CSS
+###### Less CSS
 ```less
 .visible-in-viewport:not(.in-viewport){
     min-height: 50px;
@@ -66,7 +66,7 @@ Les exemples de codes suivants permettent de masquer les éléments DOM .visible
   //display par défaut si dans le viewport
 }
 ```
-######Javascript
+###### Javascript
 ```javascript
 /**
  * ajoute ou enlève la classe .in-viewport sur les éléments .visible-in-viewport
