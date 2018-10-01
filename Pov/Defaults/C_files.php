@@ -65,7 +65,7 @@ class C_files extends Controller
                 $img =Image::canvas($imageUrl->_width,$imageUrl->_height, '#'.$imageUrl->_bgColor);
             }else{
                 try{
-                    $img = Image::make($imageUrl->_source);
+                    $img = Image::make($imageUrl->_source)->orientate();
                 }catch (\Exception $e){
                     $img =Image::canvas($imageUrl->_width,$imageUrl->_height, '#'.$imageUrl->_bgColor);
                     $errors[]="image introuvable ".$imageUrl->_source;
