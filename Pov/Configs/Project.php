@@ -121,13 +121,18 @@ class Project {
      * @param string $termsIdentifier
      * @return string
      */
-    public function translation($termsIdentifier){
+    public function translation($termsIdentifier,$nl2br=false){
         if(!$termsIdentifier){
             return "nothing to translate!!!";
         }
         $trads=$this->translations();
         if(isset($trads->{$termsIdentifier}->{the()->project->langCode})){
-            return $trads->{$termsIdentifier}->{the()->project->langCode};
+            $text= $trads->{$termsIdentifier}->{the()->project->langCode};
+            if($nl2br){
+                return nl2br($text);
+            }
+            return $text;
+
         }else{
             return $termsIdentifier;
         }
