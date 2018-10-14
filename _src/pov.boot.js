@@ -6,8 +6,6 @@ require("./EVENTS");
 
 window.$=document.$ = window.jQuery = require("jquery");
 require("./pov.jquery.more");
-
-//notre m
 import Pov from "./Pov";
 window.Pov=Pov;
 

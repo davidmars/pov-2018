@@ -17,6 +17,20 @@ export default class Pov{
             Pov.__onBodyReadyCallBacks.push(cb); //sinon on le fera plus tard
         }
     }
+
+    /**
+     * Renvoie un terme traduit
+     * @param termIdentitifier
+     * @return {string} Le terme traduit
+     */
+    static translate(termIdentitifier){
+        if(LayoutVars.translations[termIdentitifier]){
+            return LayoutVars.translations[termIdentitifier];
+        }else{
+            console.error(termIdentitifier+" n'est pas défini dans LayoutVars.translations");
+            return termIdentitifier;
+        }
+    }
 }
 Pov.__onBodyReadyCallBacks=[];
 
