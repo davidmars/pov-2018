@@ -79,11 +79,16 @@ class FileSystem {
     /**
      * Retourne le chemin d'un fichier upload pour être affiché via http
      * @param string $filePath
+     * @param bool $absolute si true renverra l'url avec http://etc...
      * @return string
      */
-    public function uploadHttpPath($filePath)
+    public function uploadHttpPath($filePath,$absolute=false)
     {
-        return the()->fmkHttpRoot."/".$this->uploadLocalPath($filePath);
+        $r=the()->fmkHttpRoot."/".$this->uploadLocalPath($filePath);
+        if($absolute){
+            return the()->requestUrl->httpScheme."://".the()->requestUrl->host.$r;
+        }
+        return $r;
     }
     /**
      * Retourne le chemin d'un fichier upload en sytème local
