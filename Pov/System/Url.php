@@ -59,7 +59,11 @@ class Url {
         }
         $this->fullUrlRelative="/".$this->path;
         if(isset($p["query"])){
-            $this->fullUrlRelative.="?".$p["query"];
+            $q=str_replace("povHistory=true","",$p["query"]);
+            if($q!=="?"){
+                $this->fullUrlRelative.="?".$q;
+            }
+
         }
     }
 
