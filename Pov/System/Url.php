@@ -17,6 +17,10 @@ class Url {
      */
     public $fullUrlNoQueryString="";
     /**
+     * @var string L'url complete sans http://domaine.com /abc/def/ghi.ext?params=values&etc...
+     */
+    public $fullUrlRelative="";
+    /**
      * @var string Le nom de domaine ou sous domaine (sans http://)
      */
     public $host="";
@@ -40,6 +44,7 @@ class Url {
     public function __construct($fullUrl){
         $this->fullUrl=$fullUrl;
         $this->fullUrlNoQueryString=preg_replace("/\?.*$/","",$fullUrl);
+
         $p=parse_url($fullUrl);
         if(isset($p["scheme"])){
             $this->httpScheme=$p["scheme"];
@@ -51,6 +56,10 @@ class Url {
         }
         if(isset($p["path"])){
             $this->path=trim($p["path"],"/");
+        }
+        $this->fullUrlRelative="/".$this->path;
+        if(isset($p["query"])){
+            $this->fullUrlRelative.="?".$p["query"];
         }
     }
 
