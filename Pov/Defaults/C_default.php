@@ -83,6 +83,8 @@ class C_default extends Controller{
             if(the()->requestUrl->isAjax){
                 $o=new ApiResponse();
                 $o->setHtml($v,null);
+                $o->addToJson("meta",the()->htmlLayout()->meta);
+                $o->addToJson("pageInfo",the()->htmlLayout()->pageInfo);
                 return View::get("json",$o);
             }
             return new View($v);
