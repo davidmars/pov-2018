@@ -44,11 +44,31 @@ export default class Xdebug{
     static fromString(str){
         let $el=$("<div>"+str+"</div>");
         let $tags=$el.find(".xdebug-error").not(".xdebug-init");
-        $tags.each(function(){
-            new Xdebug($(this));
-        });
+        let found=false;
+
         if($tags.length===0){
-            console.log("xdebug problème pour trouver les erreurs...");
+            //si jamais xdebug n'est pas installé on aura des fatal error classiques
+            let regex = /(<b>Fatal error<\/b>)([^\0]*)/;
+            let m;
+            if ((m = regex.exec(str)) !== null) {
+                found=true;
+                console.error("PHP Fatal error detected");
+                var n = m[2].split("\n");
+                for(var x in n){
+                    console.error(n[x]);
+                }
+            }
+        }else{
+            found=true;
+            $tags.each(function(){
+                found=true;
+                new Xdebug($(this));
+            });
+        }
+
+        if(!found){
+            console.error("xdebug problème pour trouver les erreurs...");
+            console.error(str);
         }
     }
 }
