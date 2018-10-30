@@ -63,8 +63,10 @@ class Url {
             if($q!=="?"){
                 $this->fullUrlRelative.="?".$q;
             }
-
         }
+        //nettoie les ? et & innutiles
+        $this->fullUrlRelative=preg_replace("/&+$/","",$this->fullUrlRelative);
+        $this->fullUrlRelative=preg_replace("/\?+$/","",$this->fullUrlRelative);
     }
 
 
