@@ -36,37 +36,58 @@ export default class PovApi{
     };
 
     /**
-     *
+     * Fait appel à C_povApi/action/votreAction
+     * @deprecated Utilisez PovApi.actionCB
      * @param {string} actionName le nom de l'action à effectuer
-     * @param datas
+     * @param {object} datas Les données POST à transmettre
      * @returns {Promise<any>}
      */
     static action(actionName,datas){
-        let url=LayoutVars.rootUrl+"/povApi/action/"+actionName;
         return new Promise(function(resolve,reject){
-            $.ajax({
-                dataType: "json",
-                url: url,
-                method:"post",
-                data: datas,
-                success: function(result){
-                    resolve(result);
+            PovApi.actionCB(actionName,datas,
+                function(response){
+                    resolve(response);
                 },
-                error:function(response){
-                    if(response.responseText){
-                        Xdebug.fromString(response.responseText)
-                    }
+                function(response){
                     reject(response);
-
                 }
-            });
+            );
         });
-
-
     }
 
     /**
-     * Evoie des données au controleur C_povApi->save
+     *
+     * Fait appel à C_povApi/action/votreAction
+     *
+     * @param {string} actionName le nom de l'action à effectuer
+     * @param {object} datas Les données POST à transmettre
+     * @param {function} cb Callback de l'action
+     * @param {function} cbError Callback en cas d'erreurs bas niveau
+     */
+    static actionCB(actionName,datas,cb,cbError=null){
+        let url=LayoutVars.rootUrl+"/povApi/action/"+actionName;
+        if(cbError===null){
+            cbError=function(){}
+        }
+        $.ajax({
+            dataType: "json",
+            url: url,
+            method:"post",
+            data: datas,
+            success: function(response){
+                cb(response);
+            },
+            error:function(response){
+                if(response.responseText){
+                    Xdebug.fromString(response.responseText)
+                }
+                cbError(response);
+            }
+        });
+    }
+
+    /**
+     * Evoie des données au controleur C_povApi->delete
      * Attention le controlleur ne fera rien sans un listener côté PHP
      * @param {object} datas Les données à envoyer
      * @param cb
