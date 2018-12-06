@@ -47,7 +47,6 @@ class ColorUtils extends AbstractSingleton
      */
     public function fullRandHex($pseudoRandString=null)
     {
-
         if($pseudoRandString){
             $hue=Pov::inst()->utils->math->randFromString($pseudoRandString,0,360);
         }else{
@@ -56,7 +55,7 @@ class ColorUtils extends AbstractSingleton
         if($pseudoRandString){
             $saturation=Pov::inst()->utils->math->randFromString($pseudoRandString."something",0,100);
         }else{
-            $hue=rand(0,100);
+            $saturation=rand(0,100);
         }
         if($pseudoRandString){
             $luminance=Pov::inst()->utils->math->randFromString($pseudoRandString."somethingelse",0,100);
