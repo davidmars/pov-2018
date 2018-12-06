@@ -39,7 +39,7 @@ class C_povApi extends Controller
             $vv->addError("Il faut spécifier un nom d'action");
         }
         pov()->events->dispatch(self::EVENT_ACTION,[$vv,$actionName]); //il faut gérer grace à l'event l'action d'enregistrement
-        $vv->addToJson("\$_POST",$_POST);
+        //$vv->addToJson("\$_POST",$_POST);
         return View::get("json",$vv);
     }
     public function save_run(){
