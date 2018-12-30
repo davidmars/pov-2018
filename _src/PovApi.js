@@ -390,6 +390,7 @@ export default class PovApi{
      * Si l'élément $toReplace a un attribut pov-v-dom-selector c'est ce selecteur DOM qui sera utilisé
      * @param {object} datas Les données à transmettre au controleur
      * @param {function} cb
+     * @return {XMLHttpRequest}
      * //todo opti mettre un petit delay/cache pour éviter de faire plusieurs fois le même appel dans la même seconde
      */
     static getView(viewPath, $toReplace,datas={},cb) {
@@ -408,7 +409,7 @@ export default class PovApi{
         }
 
         //$toReplace.empty();
-        $.ajax({
+        let xhr=$.ajax({
             dataType: "json",
             url: url,
             method:"get",
@@ -439,12 +440,17 @@ export default class PovApi{
                 }
             },
             error:function(response){
+                if(response.statusText==="abort"){
+                    return; // ce n'est pas une vraie erreur on a simplement abort la requete
+                }
                 console.error("oups getView...",response);
                 if(response.responseText){
                     Xdebug.fromString(response.responseText)
                 }
             }
         });
+
+        return xhr;
     }
 
     /**
