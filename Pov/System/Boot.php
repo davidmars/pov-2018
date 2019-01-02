@@ -13,6 +13,10 @@ use Pov\PovException;
  * @package Pov\System
  */
 class Boot {
+    /**
+     * @var string[] Liste des redirections 301, la clé est l'url d'origine, la valeur est l'url de redirection
+     */
+    public $redirect301=[];
 
     /**
      * @var int Le microtime quand le Boot à été construit
@@ -77,6 +81,8 @@ class Boot {
         $routeOnly=$_GET["routeOnly"];
         //urls hors projet en premier
 
+
+
         if(preg_match("@^files/@",$routeOnly,$m)){
             //die("files/cache");
             $urlBase="";
@@ -134,6 +140,17 @@ class Boot {
         //force https?
         if(the()->configProjectUrl->forceHttps && !the()->requestUrl->isHttps){
             the()->headerOutput->redirectUrl=str_replace("http://","https://",the()->requestUrl->fullUrl);
+            the()->headerOutput->code=Header::REDIRECT_301;
+            $this->end();
+        }
+
+        //redurect 301?
+
+        //die("routeOnly ".the()->requestUrl->routeString());
+        $route=trim(the()->requestUrl->routeString(),"/");
+        if(array_key_exists($route,$this->redirect301)){
+            //die("redirect to ".the()->configProjectUrl->absoluteUrl()."/".$this->redirect301[$route]);
+            the()->headerOutput->redirectUrl=the()->configProjectUrl->absoluteUrl()."/".$this->redirect301[$route];
             the()->headerOutput->code=Header::REDIRECT_301;
             $this->end();
         }
