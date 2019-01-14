@@ -112,16 +112,33 @@ class ArrayUtils extends AbstractSingleton
     /**
      * Renvoie un tableau à partir d'une chaine séparée par des virgules, des espaces, des points virgules ou des sauts de ligne
      * @param string|array $string si c'est un tableau à la base le renvera.
+     * @param bool $newlines Définir sur false pour ignorer
+     * @param bool $spaces Définir sur false pour ignorer
+     * @param bool $comma Définir sur false pour ignorer
+     * @param bool $dotComma Définir sur false pour ignorer
      * @return string[]
      */
-    public function fromString($string){
+    public function fromString($string,$newlines=true,$spaces=true,$comma=true,$dotComma=true){
         if(!$string){
             return [];
         }
         if(is_array($string)){
             return $string;
         }else{
-            return preg_split("/[;, \r\n]+/", $string);
+            $chr="";
+            if($newlines){
+                $chr.="\\r\\n";
+            }
+            if($spaces){
+                $chr.=" ";
+            }
+            if($comma){
+                $chr.=",";
+            }
+            if($dotComma){
+                $chr.=";";
+            }
+            return preg_split("/[$chr]+/", $string);
         }
 
 
