@@ -165,7 +165,7 @@ class IframeUtils extends AbstractSingleton {
 
      * @return string
      */
-    public function youtubeSrcPlayerParams($src,$color="ff0000",$autoplay=0,$loop=0,$showTitle=0,$showAuthor=0,$showinfo=0,$controls=2){
+    public function youtubeSrcPlayerParams($src,$color="ff0000",$autoplay=0,$loop=0,$showTitle=0,$showAuthor=0,$showinfo=0,$controls=2,$mute=0){
         if($this->isYoutubeSrc($src)){
 
             $params=[
@@ -178,6 +178,7 @@ class IframeUtils extends AbstractSingleton {
                 "controls"=>$controls,
                 "enablejsapi"=>1,
                 "modestbranding"=>1,
+                "mute"=>$mute,
                 "rel"=>0,
             ];
             $q=http_build_query($params);
