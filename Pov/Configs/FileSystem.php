@@ -276,13 +276,17 @@ class FileSystem {
     /**
      * Convertit un chemin serveur en chemin http
      * @param string $localPath un chemin en mode serveur
+     * @param bool $absolute Si true renverra le chemin absolut.
      * @return string un chemin en mode http
      */
-    function filesystemToHttp($localPath){
+    function filesystemToHttp($localPath,$absolute=false){
         $r=preg_replace("%^".preg_quote(getcwd())."%","",$localPath);
         $r=str_replace("\\","/",$r);
         $r=trim($r,"/");
         $r=the()->fmkHttpRoot."/".$r;
+        if($absolute){
+            $r=the()->requestUrl->httpScheme."://".the()->requestUrl->host.$r;
+        }
         return $r;
     }
 
