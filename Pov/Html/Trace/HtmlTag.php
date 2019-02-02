@@ -11,6 +11,11 @@ class HtmlTag
     use HasAttributesTrait;
 
     /**
+     * @var bool si défini sur false aucun code html ne sera renvoyé
+     */
+    public $isRenderable=true;
+
+    /**
      * @var string
      */
     private $tagname, $innerHTML;
@@ -87,6 +92,9 @@ class HtmlTag
      */
     public function __toString()
     {
+        if(!$this->isRenderable){
+            return "";
+        }
         if ($this->isVoidElement()) {
             return $this->getOpenTag();
         }
