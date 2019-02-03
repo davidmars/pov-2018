@@ -20,6 +20,7 @@ use Pov\System\AbstractSingleton;
  * @property MathUtils $math Pour jouer avec des chiffres
  * @property FilesUtils $files Pour jouer avec des fichier et repertoires
  * @property CsvUtils $csv Pour jouer avec des fichier csv
+ * @property CssUtils $css Pour jouer avec des trucs en css
  * @property LangUtils $lang Pour jouer avec les langues
  */
 class Utils extends AbstractSingleton
@@ -61,6 +62,9 @@ class Utils extends AbstractSingleton
                         return FilesUtils::inst();
                 case "csv":
                         return CsvUtils::inst();
+                    break;
+                case "css":
+                        return CssUtils::inst();
                     break;
                 case "lang":
                         return LangUtils::inst();
