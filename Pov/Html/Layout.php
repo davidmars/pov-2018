@@ -41,6 +41,10 @@ class Layout {
      */
     public $jsFooterFiles=[];
     /**
+     * @var String[] Fichiers javascript importés en script dans le footer
+     */
+    public $jsFooterScripts=[];
+    /**
      * @var \stdClass Les variables qui seront transmises à javascript
      */
     public $layoutVars=[];
@@ -86,6 +90,13 @@ class Layout {
             $this->jsFooterFiles[$jsFile]=$fileItem;
         }
 
+    }
+    /**
+     * Ajoute le contenu d'un fichier javascript dans le footer
+     * @param string $jsFile  chemin vers le fichier Javascript
+     */
+    public function addJsScriptToFooter($jsFile){
+        $this->jsFooterScripts[]="<script>".file_get_contents($jsFile)."</script>";
     }
     /**
      * Ajoute un fichier javascript dans le header

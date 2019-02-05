@@ -210,4 +210,7 @@ var meta=<?=json_encode($vv->meta)?>;
 <?foreach($vv->importFooterFiles as $import):?>
 <?=$import->htmlTag()?>
 <?endforeach;?>
+<?foreach($vv->jsFooterScripts as $script):?>
+<?=$script?>
+<?endforeach;?>
 
