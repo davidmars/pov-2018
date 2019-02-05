@@ -58,6 +58,11 @@ class Layout {
      */
     public $redirectJS="";
 
+    /**
+     * @var string pour rajouter un tag <base href='...'>
+     */
+    public $base="";
+
 
     public function __construct(){
         $this->meta=new Meta();

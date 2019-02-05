@@ -16,6 +16,9 @@ if(!is_a($vv,"Pov\Html\Layout")){
 <html lang="<?=$vv->meta->langCode ?>" class="no-js" xmlns:og="http://opengraphprotocol.org/schema/"> <!--<![endif]-->
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<?if($vv->base):?>
+<base href="<?=$vv->base?>">
+<?endif?>
 <?
 
 //redirect javascript ?
