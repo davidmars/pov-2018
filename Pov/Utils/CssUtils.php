@@ -51,7 +51,10 @@ class CssUtils extends AbstractSingleton
      */
     public function backgroundImageUrl($imgUrl)
     {
-        $str="background-image:url('$imgUrl');";
+        $str="";
+        if($imgUrl){
+            $str="background-image:url('$imgUrl');";
+        }
         return $str;
     }
 }
