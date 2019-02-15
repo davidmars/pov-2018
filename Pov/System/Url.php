@@ -37,6 +37,11 @@ class Url {
      * @var bool ssl ou pas?
      */
     public $isHttps=false;
+    /**
+     * Parfait pour les urls absolues, renvoie l'url absolue + l'hote
+     * @var string http://mondomaine.com ou https://mondomaine.com
+     */
+    public $httpAndHost="";
 
     /**
      * @param $fullUrl
@@ -54,6 +59,9 @@ class Url {
         if(isset($p["host"])){
             $this->host=$p["host"];
         }
+
+        $this->httpAndHost=$this->httpScheme."://".$this->host;
+
         if(isset($p["path"])){
             $this->path=trim($p["path"],"/");
         }

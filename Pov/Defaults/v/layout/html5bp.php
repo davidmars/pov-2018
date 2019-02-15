@@ -90,8 +90,8 @@ if(!is_a($vv,"Pov\Html\Layout")){
 
 ?>
 <?if($vv->ogImage):?>
-<meta property="og:image" content="<?=the()->configProjectUrl->absoluteUrl().$vv->ogImage?>">
-<meta name="twitter:image" content="<?=the()->configProjectUrl->absoluteUrl().$vv->ogImage?>" >
+<meta property="og:image" content="<?=$vv->ogImage?>">
+<meta name="twitter:image" content="<?=$vv->ogImage?>" >
 <?if($vv->ogImageHeight && $vv->ogImageHeight):?>
 <meta property="og:image:width" content="<?=$vv->ogImageWidth?>">
 <meta property="og:image:height" content="<?=$vv->ogImageHeight?>">
