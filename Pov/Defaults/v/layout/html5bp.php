@@ -192,9 +192,9 @@ foreach ($vv->jsHeaderFiles as $f){
     $vv->layoutVars->assets["javascriptHeader"][]=$f->url;
 }
 ?>
-var LayoutVars=<?=json_encode($vv->layoutVars)?>;
-var pageInfo=<?=json_encode($vv->pageInfo)?>;
-var meta=<?=json_encode($vv->meta)?>;
+var LayoutVars=<?=json_encode($vv->layoutVars,JSON_UNESCAPED_SLASHES)?>;
+var pageInfo=<?=json_encode($vv->pageInfo,JSON_UNESCAPED_SLASHES)?>;
+var meta=<?=json_encode($vv->meta,JSON_UNESCAPED_SLASHES)?>;
 </script>
 <?
 
