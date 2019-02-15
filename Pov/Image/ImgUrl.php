@@ -219,7 +219,7 @@ class ImgUrl
             $r= the()->fmkHttpRoot."/".the()->fileSystem->cachePath."/".$this->__toString();
         }
         if($absolute){
-            return the()->requestUrl->httpScheme."://".the()->requestUrl->host.$r;
+            return the()->requestUrl->httpAndHost.$r;
         }else{
             return $r;
         }
