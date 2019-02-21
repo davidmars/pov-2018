@@ -35,7 +35,7 @@ if(!is_a($vv,"Pov\Html\Layout")){
 <title><?=$vv->meta->title?></title>
 <meta name="description" content="<?=$vv->meta->description?>">
 <meta name="keywords" content="<?=$vv->meta->keywords?>">
-<meta name="twitter:card" content="summary" >
+<meta name="twitter:card" content="<?=the()->htmlLayout()->twitterCardType?>" >
 <meta name="twitter:title" content="<?=$vv->meta->title?>" >
 <meta name="twitter:description" content="<?=$vv->meta->description?>" >
 <meta property="og:title" content="<?=$vv->meta->title?>" />
@@ -91,7 +91,7 @@ if(!is_a($vv,"Pov\Html\Layout")){
 ?>
 <?if($vv->ogImage):?>
 <meta property="og:image" content="<?=$vv->ogImage?>">
-<meta name="twitter:image" content="<?=$vv->ogImage?>" >
+<meta name="twitter:image" content="<?=$vv->twitterImage()?>" >
 <?if($vv->ogImageHeight && $vv->ogImageHeight):?>
 <meta property="og:image:width" content="<?=$vv->ogImageWidth?>">
 <meta property="og:image:height" content="<?=$vv->ogImageHeight?>">
@@ -100,6 +100,7 @@ if(!is_a($vv,"Pov\Html\Layout")){
 <?if($vv->ogType):?>
 <meta property="og:type" content="<?=$vv->ogType?>">
 <?endif?>
+
 <?if($vv->ogLatitude || $vv->ogLongitude):?>
 <meta property="place:location:latitude"  content="<?=$vv->ogLatitude?>" />
 <meta property="place:location:longitude" content="<?=$vv->ogLongitude?>" />

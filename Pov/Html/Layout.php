@@ -66,6 +66,10 @@ class Layout {
      * @var string pour rajouter un tag <base href='...'>
      */
     public $base="";
+    /**
+     * @var string Par défaut summary mais peut être summary_large_image
+     */
+    public $twitterCardType="summary";
 
 
     public function __construct(){
@@ -162,6 +166,25 @@ class Layout {
      * @var string Url de l'image de previewu facebook
      */
     public $ogImage="";
+    /**
+     * @var string Url de l'image de preview twitter
+     */
+    private $_twitterImage="";
+
+    /**
+     * Get/Set l'url de l'image twitter card
+     * @param string $imageToSet Pour définir cette image
+     * @return string url absolue
+     */
+    public function twitterImage($imageToSet=null){
+        if($imageToSet){
+            $this->_twitterImage=$imageToSet;
+        }
+        if($this->_twitterImage){
+            return $this->_twitterImage;
+        }
+        return $this->ogImage;
+    }
     /**
      * @var string largeur de l'image
      */
