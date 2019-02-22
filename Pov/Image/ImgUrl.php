@@ -169,6 +169,15 @@ class ImgUrl
         $this->_bgColor=$color;
         return $this;
     }
+
+    /**
+     * Pour forcer la génération de l'image en cache.
+     * @return $this
+     */
+    public function generate(){
+
+        return $this;
+    }
     public function jpg($quality=80){
         $this->_extension="jpg";
         $this->_quality=$quality;
@@ -210,19 +219,26 @@ class ImgUrl
     /**
      * Pour obtenir l'url finale de l'image
      * @param bool $absolute Mettre true pour avoir une url absolue
+     * @param bool $generateFile si true va générer l'image en même temps que l'url (donc ça peut prendre du temps)
      * @return string pour obtenir l'url finale de l'image
      */
-    public function href($absolute=false){
+    public function href($absolute=false,$generateFile=false){
+        $str=$this->__toString();
+        $localFile=the()->fileSystem->cachePath."/".$str;
         if($this->_preserveGif && $this->isGif()){
-            $r= the()->fmkHttpRoot."/".$this->__toString();
+            $relative= the()->fmkHttpRoot."/".$str;
         }else{
-            $r= the()->fmkHttpRoot."/".the()->fileSystem->cachePath."/".$this->__toString();
+            $relative= the()->fmkHttpRoot."/".$localFile;
+        }
+        $abs=the()->requestUrl->httpAndHost.$relative;
+
+        if($generateFile && !is_file($localFile)){
+            file_get_contents($abs);
         }
         if($absolute){
-            return the()->requestUrl->httpAndHost.$r;
-        }else{
-            return $r;
+            return $abs;
         }
+        return $relative;
 
     }
 
