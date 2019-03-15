@@ -45,6 +45,19 @@ class Layout {
      */
     public $jsFooterScripts=[];
     /**
+     * @var String[] Fichiers javascript importés en script dans le headezr
+     */
+    public $jsHeaderScripts=[];
+
+    /**
+     * @var String[] Contenus bruts importés dans le footer
+     */
+    public $rawFooterContents=[];
+    /**
+     * @var String[] Contenus bruts importés dans le header
+     */
+    public $rawHeaderContents=[];
+    /**
      * @var \stdClass Les variables qui seront transmises à javascript
      */
     public $layoutVars=[];
@@ -101,6 +114,27 @@ class Layout {
      */
     public function addJsScriptToFooter($jsFile){
         $this->jsFooterScripts[]="<script>".file_get_contents($jsFile)."</script>";
+    }
+    /**
+     * Ajoute le contenu d'un fichier javascript dans le header
+     * @param string $jsFile  chemin vers le fichier Javascript
+     */
+    public function addJsScriptToHeader($jsFile){
+        $this->jsHeaderScripts[]="<script>".file_get_contents($jsFile)."</script>";
+    }
+    /**
+     * Ajoute le contenu d'un fichier dans le footer
+     * @param string $fileUrl  chemin vers le fichier dont le contenu sera à inclure
+     */
+    public function addRawContentToFooter($fileUrl){
+        $this->rawFooterContents[]="\n".file_get_contents($fileUrl)."\n";
+    }
+    /**
+     * Ajoute le contenu d'un fichier dans le header
+     * @param string $fileUrl  chemin vers le fichier dont le contenu sera à inclure
+     */
+    public function addRawContentToHeader($fileUrl){
+        $this->rawHeaderContents[]="\n".file_get_contents($fileUrl)."\n";;
     }
     /**
      * Ajoute un fichier javascript dans le header

@@ -159,6 +159,12 @@ if(!is_a($vv,"Pov\Html\Layout")){
 <?foreach($vv->importHeaderFiles as $import):?>
 <?=$import->htmlTag()?>
 <?endforeach;?>
+<?foreach($vv->jsHeaderScripts as $script):?>
+<?=$script?>
+<?endforeach;?>
+<?foreach($vv->rawHeaderContents as $script):?>
+<?=$script?>
+<?endforeach;?>
 </head>
 <body>
 <?
@@ -213,5 +219,8 @@ var meta=<?=json_encode($vv->meta,JSON_UNESCAPED_SLASHES)?>;
 <?endforeach;?>
 <?foreach($vv->jsFooterScripts as $script):?>
 <?=$script?>
+<?endforeach;?>
+<?foreach($vv->rawFooterContents as $script):?>
+    <?=$script?>
 <?endforeach;?>
 
