@@ -79,7 +79,8 @@ class Project {
         if(!$this->_translations){
             $this->_translations=new Translations(
                 $this->config_translations_csv_url,
-                $this->langCode
+                $this->langCode,
+                $this->config_translations_debug
             );
         }
         return $this->_translations->translations();
