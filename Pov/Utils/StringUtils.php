@@ -117,10 +117,13 @@ class StringUtils extends AbstractSingleton {
     /**
      * Format a text to be used in attributes elements (no special chars and linebreaks)
      * @param string $text
+     * @param bool $preventNewLines when set to false newlines are not escaped
      * @return string
      */
-    public function forAttributes($text){
-        $text=preg_replace( "/\r|\n/", " ", $text );
+    public function forAttributes($text,$preventNewLines=true){
+        if($preventNewLines){
+            $text=preg_replace( "/\r|\n/", " ", $text );
+        }
         return htmlspecialchars($text);
     }
 
