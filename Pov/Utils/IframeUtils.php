@@ -101,7 +101,6 @@ class IframeUtils extends AbstractSingleton {
     }
 
 
-
     /**
      * Rajoute des paramètre à une url vimeo pour en modifier le comportement
      * @param string $src url d'un player vimeo
@@ -110,9 +109,11 @@ class IframeUtils extends AbstractSingleton {
      * @param int $loop
      * @param int $showTitle
      * @param int $showAuthor
+     * @param int $showPortrait
+     * @param int $muted
      * @return string
      */
-    public function vimeoSrcPlayerParams($src,$color="ff0000",$autoplay=0,$loop=0,$showTitle=0,$showAuthor=0,$showPortrait=0){
+    public function vimeoSrcPlayerParams($src,$color="ff0000",$autoplay=0,$loop=0,$showTitle=0,$showAuthor=0,$showPortrait=0,$muted=0,$background=0){
         if($this->isVimeoSrc($src)){
 
             $params=[
@@ -122,6 +123,8 @@ class IframeUtils extends AbstractSingleton {
                 "byline"=>$showAuthor,
                 "portrait"=>$showPortrait,
                 "loop"=>$loop,
+                "muted"=>$muted,
+                "background"=>$background,
             ];
             $q=http_build_query($params);
             $query = parse_url($src, PHP_URL_QUERY);
