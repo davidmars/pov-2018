@@ -81,8 +81,6 @@ class Boot {
         $routeOnly=$_GET["routeOnly"];
         //urls hors projet en premier
 
-
-
         if(preg_match("@^files/@",$routeOnly,$m)){
             //die("files/cache");
             $urlBase="";
@@ -97,6 +95,7 @@ class Boot {
 
         }
 
+        //tente de trouver un fichier de conf ndd.com/directory/path.php
         if(!$confFile){
             //urls projet
             while(!$confFile && $urlParts){
@@ -105,6 +104,24 @@ class Boot {
                 if(file_exists($toTest) && is_file($toTest)){
                     $confFile=$toTest;
                     require_once $confFile;
+                }else{
+                    array_pop($urlParts);
+                }
+            }
+        }
+
+        if(!$confFile){
+            //va tenter avec configs/all-domains/directory/path.php
+            $fullUrl="all-domains"."/".the()->requestUrl->path;
+            $urlParts=explode("/",$fullUrl);
+            //urls projet
+            while(!$confFile && $urlParts){
+                $urlBase=implode("/",$urlParts);
+                $toTest="configs/routes/".$urlBase.".php";
+                if(file_exists($toTest) && is_file($toTest)){
+                    $confFile=$toTest;
+                    require_once $confFile;
+                    $urlBase=the()->configProjectUrl->httpPath;
                 }else{
                     array_pop($urlParts);
                 }
