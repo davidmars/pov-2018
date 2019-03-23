@@ -199,7 +199,11 @@ export default class PovApi{
                 filename=file.name;
                 filenametmp=""+new Date().getTime()+file.name;
                 size = file.size;
+
                 var sliceSize = 1048576; // 1MB chunk sizes.;
+                if(size<1048576 * 5){
+                    sliceSize=104857; // 100k chunk si moins de 5m
+                }
                 var start = 0;
                 setTimeout(loop, 1);
                 function loop() {
@@ -208,7 +212,7 @@ export default class PovApi{
                         end = size;
                     }
                     var s = slice(file, start, end);
-                    sendChunck(s, start, end,function(json){
+                    sendChunck(s, start, end,sliceSize,function(json){
                         if (end < size) {
                             start += sliceSize;
                             setTimeout(function(){
@@ -221,7 +225,7 @@ export default class PovApi{
                 }
             }
 
-            function sendChunck(piece, start, end,cbNextChunk) {
+            function sendChunck(piece, start, end,sliceSize,cbNextChunk) {
                 var formdata = new FormData();
                 var xhr = new XMLHttpRequest();
                 var apiurl=uploadUrl+"?";
@@ -229,6 +233,7 @@ export default class PovApi{
                 apiurl+="filenametmp="+filenametmp+"&";
                 apiurl+="size="+size+"&";
                 apiurl+="end="+end+"&";
+                apiurl+="sliceSize="+sliceSize+"&";
                 xhr.open('POST',apiurl,true);
                 formdata.append('chunck', piece);
                 xhr.addEventListener("error", function(){
