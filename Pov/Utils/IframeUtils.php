@@ -93,6 +93,7 @@ class IframeUtils extends AbstractSingleton {
 
         $tag->setAttribute("width","100%");
         $tag->setAttribute("height","100%");
+        $tag->setAttribute("allow","accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture");
 
         $tag->setAttribute("webkitallowfullscreen","true");
         $tag->setAttribute("mozallowfullscreen","true");
