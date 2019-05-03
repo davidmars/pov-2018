@@ -45,7 +45,7 @@ class StringUtils extends AbstractSingleton {
      * @return string le code html
      */
     public function fixHtml($html){
-        $doc = new DOMDocument;
+        $doc = new \DOMDocument;
         @$doc->loadHTML($html);
         $nodes = $doc->getElementsByTagName('body')->item(0)->childNodes;
         $clean = '';
