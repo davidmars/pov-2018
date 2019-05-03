@@ -40,6 +40,23 @@ class StringUtils extends AbstractSingleton {
     }
 
     /**
+     * Tente d'arranger un code html
+     * @param string $html Code HTML possiblement cassé
+     * @return string le code html
+     */
+    public function fixHtml($html){
+        $doc = new DOMDocument;
+        @$doc->loadHTML($html);
+        $nodes = $doc->getElementsByTagName('body')->item(0)->childNodes;
+        $clean = '';
+        $len = $nodes->length;
+        for ($i = 0; $i < $len; $i++) {
+            $clean .= $doc->saveHTML($nodes->item($i));
+        }
+        return $clean;
+    }
+
+    /**
      * Que des a-z A-Z et tirets
      * @param $string
      * @param string $allowed liste des charactères autorisés (en dehors de A-Z 0-9 - )
