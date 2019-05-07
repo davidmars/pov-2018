@@ -47,11 +47,18 @@ class StringUtils extends AbstractSingleton {
     public function fixHtml($html){
         $doc = new \DOMDocument;
         @$doc->loadHTML($html);
-        $nodes = $doc->getElementsByTagName('body')->item(0)->childNodes;
-        $clean = '';
-        $len = $nodes->length;
-        for ($i = 0; $i < $len; $i++) {
-            $clean .= $doc->saveHTML($nodes->item($i));
+        $nodes = $doc->getElementsByTagName('body')->item(0);
+        if($nodes){
+            $nodes = $nodes->childNodes;
+        }
+        if($nodes){
+            $clean = '';
+            $len = $nodes->length;
+            for ($i = 0; $i < $len; $i++) {
+                $clean .= $doc->saveHTML($nodes->item($i));
+            }
+        }else{
+            $clean=$html;
         }
         return $clean;
     }
