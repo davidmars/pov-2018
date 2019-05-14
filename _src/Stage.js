@@ -55,14 +55,14 @@ export default class Stage extends EventEmitter{
         /**
          * Met à jour les propriétés du scroll uniquement
          */
-        function updateScrollProps(){
+        function updateScrollProps(e){
             me._previousScrollY=me.scrollY;
             me.scrollY=window.pageYOffset || document.documentElement.scrollTop;
             if(me.scrollY<me._previousScrollY){
-                me.emit(EVENTS.SCROLL_UP);
+                me.emit(EVENTS.SCROLL_UP,e);
             }
             if(me.scrollY>me._previousScrollY){
-                me.emit(EVENTS.SCROLL_DOWN);
+                me.emit(EVENTS.SCROLL_DOWN,e);
             }
         }
 
@@ -81,7 +81,7 @@ export default class Stage extends EventEmitter{
         }, false);
         //scroll
         window.addEventListener("scroll", function(ev) {
-            updateScrollProps();
+            updateScrollProps(ev);
             me.emit(EVENTS.SCROLL,ev);
 
         }, false);
