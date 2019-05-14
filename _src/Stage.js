@@ -34,10 +34,36 @@ export default class Stage extends EventEmitter{
          * @type {number}
          */
         this.mouseY=0;
+        /**
+         * Position Y du scroll
+         * @type {number}
+         */
+        this.scrollY=window.pageYOffset || document.documentElement.scrollTop;
+        /**
+         * Précédente position Y du scroll (afin de déterminer le sens du scroll)
+         * @type {number}
+         * @private
+         */
+        this._previousScrollY=0;
 
         function updateProps() {
             me.height=window.innerHeight;
             me.width=window.innerWidth;
+            updateScrollProps();
+        }
+
+        /**
+         * Met à jour les propriétés du scroll uniquement
+         */
+        function updateScrollProps(){
+            me._previousScrollY=me.scrollY;
+            me.scrollY=window.pageYOffset || document.documentElement.scrollTop;
+            if(me.scrollY<me._previousScrollY){
+                me.emit(EVENTS.SCROLL_UP,ev);
+            }
+            if(me.scrollY>me._previousScrollY){
+                me.emit(EVENTS.SCROLL_DOWN,ev);
+            }
         }
 
         //resize listener
@@ -55,7 +81,9 @@ export default class Stage extends EventEmitter{
         }, false);
         //scroll
         window.addEventListener("scroll", function(ev) {
+            updateScrollProps();
             me.emit(EVENTS.SCROLL,ev);
+
         }, false);
         //mousemoove
 

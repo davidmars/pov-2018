@@ -20,9 +20,17 @@ var EVENTS={
      */
     RESIZE:"RESIZE",
     /**
-     * Ev^nement de scroll
+     * Evênement de scroll
      */
     SCROLL:"SCROLL",
+    /**
+     * Evênement de scroll vers le haut
+     */
+    SCROLL_UP:"SCROLL_UP",
+    /**
+     * Evênement de scroll vers le bas
+     */
+    SCROLL_DOWN:"SCROLL_DOWN",
     /**
      * Mouvement de souris
      */
