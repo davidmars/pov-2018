@@ -59,10 +59,10 @@ export default class Stage extends EventEmitter{
             me._previousScrollY=me.scrollY;
             me.scrollY=window.pageYOffset || document.documentElement.scrollTop;
             if(me.scrollY<me._previousScrollY){
-                me.emit(EVENTS.SCROLL_UP,ev);
+                me.emit(EVENTS.SCROLL_UP);
             }
             if(me.scrollY>me._previousScrollY){
-                me.emit(EVENTS.SCROLL_DOWN,ev);
+                me.emit(EVENTS.SCROLL_DOWN);
             }
         }
 
