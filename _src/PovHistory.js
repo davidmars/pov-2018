@@ -85,21 +85,21 @@ export default class PovHistory{
             success: function(e){
                 //console.log("loadED page",url);
                 //console.log("loadED page result",e);
+                if(e.json.pageInfo){
+                    PovHistory.currentPageInfo=e.json.pageInfo;
+                }
                 Pov.events.dispatchDom($body,EVENTS.HISTORY_CHANGE_URL_LOADED);
                 if(cb){
                     cb(e);
                 }else{
                     if(e.json.meta){
                         PovHistory.setMeta(e.json.meta);
-                        PovHistory.currentPageInfo=e.json.pageInfo;
+
                     }
                     if(e.html){
                         PovHistory.injectHtml(e.html);
                     }
-
                 }
-
-
             },
             error:function(e,t,err){
                 Xdebug.fromString(e.responseText);
