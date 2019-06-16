@@ -167,4 +167,15 @@ class ArrayUtils extends AbstractSingleton
         $both  = array_filter(array_merge([$first], $last), 'strlen');
         return join(" $andWord ", $both);
     }
+
+    /**
+     * Retourne une valeur aléatoire tirée du tableau
+     * @param [] $array Le tableau dans lequel piocher
+     * @return mixed
+     */
+    public function randomValue($array){
+        $k = array_rand($array);
+        $v = $array[$k];
+        return $v;
+    }
 }
