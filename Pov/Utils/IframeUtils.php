@@ -79,9 +79,13 @@ class IframeUtils extends AbstractSingleton {
     /**
      * Renvoie une iframe à partir de sa src
      * @param string $src url de l'iframe
+     * @param bool $manageServices Si true, tentera se convertir les urls Youtube et vimeo
      * @return HtmlTag
      */
-    public function fromSrc($src){
+    public function fromSrc($src, $manageServices=false){
+        if($manageServices){
+            $src=$this->srcFromServiceUrl($src);
+        }
         $src=$this->extractSrc($src,true);
         $tag=new HtmlTag("iframe");
 
