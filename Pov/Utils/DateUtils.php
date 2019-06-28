@@ -9,6 +9,7 @@
 namespace Pov\Utils;
 
 
+use DateTime;
 use Pov\System\AbstractSingleton;
 
 /**
@@ -18,14 +19,15 @@ use Pov\System\AbstractSingleton;
 class DateUtils extends AbstractSingleton
 {
     /**
+     * Renvoie une date formatée à partir d'un texte qui ressemble à une date
      * @param string $dateString une date en texte compréhensible par strtotime
      * @param string $format "Y m d H:i:s" par exemple
      * @link http://php.net/manual/en/function.date.php
      * @link http://php.net/manual/en/function.strtotime.php
      * @return false|string
      */
-    public function formatFromString($dateString, $format){
-        return date("Y m d H:i:s",strtotime($dateString));
+    public function formatFromString($dateString, $format="Y m d H:i:s"){
+        return date($format,strtotime($dateString));
     }
 
     /**
@@ -97,5 +99,59 @@ class DateUtils extends AbstractSingleton
         if($d->getTimestamp()>$dateTime->getTimestamp()){
             return true;
         }
+    }
+
+
+    /**
+     * To get a smart date display
+     * @param DateTime $dateTime
+     * @param bool $precise when set to false, will not display hours after 24h
+     * @return string
+     */
+    public function timeAgo($dateTime,$precise=true){
+
+        $now=new DateTime();
+        $dif=$dateTime->diff($now);
+
+        //less than one hour
+        if($now->getTimestamp()-$dateTime->getTimestamp() < 3600){
+            //less than one minute
+            if($dif->i<1){
+                return "now";
+            }
+            //less than one hour
+            if($dif->h<1){
+                return $dif->i." minutes";
+            }
+        }
+
+        //round to manage hours in the day and get "human" understanding of 1 day, 2 days etc...
+        $now->setTime(0,0,2);
+        $dateTimeRound=clone $dateTime;
+        $dateTimeRound->setTime(0,0,1);
+        $dif=$dateTimeRound->diff($now);
+
+        if($dif->days < 1 && $now->format("l")==$dateTime->format("l")){
+            $r="Today";
+        }elseif($dif->days < 2 ){
+            //yesterday
+            $r="Yesterday";
+        }elseif($dif->days<7){
+            //less than a week
+            $r=$dif->days." days";
+        }else{
+            $r=$dateTime->format("d ").$dateTime->format("M");
+            if($dateTime->format("Y")!=$now->format("Y")){
+                $r.=" ".$dateTime->format("Y");
+            }
+        }
+
+        if($precise){
+            $r.=$dateTime->format(" H:i");
+        }
+
+        return $r;
+
+
     }
 }
