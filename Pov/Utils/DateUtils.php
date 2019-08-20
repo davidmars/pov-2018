@@ -18,6 +18,49 @@ use Pov\System\AbstractSingleton;
  */
 class DateUtils extends AbstractSingleton
 {
+    public $transations=[
+        "fr"=>[
+           "DAYS"=> [
+               "Monday"=>"Lundi",
+               "Tuesday"=>"Mardi",
+               "Wednesday"=>"Mercredi",
+               "Thursday"=>"Jeudi",
+               "Friday"=>"Vendredi",
+               "Saturday"=>"Samedi",
+               "Sunday"=>"Dimanche"
+           ],
+           "MONTHS"=> [
+               "January"=>"Janvier",
+               "February"=>"Février",
+               "March"=>"Mars",
+               "April"=>"Avril",
+               "May"=>"Mai",
+               "June"=>"Juin",
+               "July"=>"Juillet",
+               "August"=>"Août",
+               "September"=>"Septembre ",
+               "October"=>"Octobre",
+               "November"=>"Novembre ",
+               "December"=>"Décembre ",
+           ],
+        ]
+    ];
+
+    /**
+     * @param string $date Un texte en angalis comprenant des mots tels que lundi, mardi etc...
+     * @param string $langcode "fr" par défaut
+     * @return mixed
+     */
+    public function translate($date,$langcode="fr"){
+        foreach ($this->transations[$langcode]["DAYS"] as $k=>$v){
+            $date=str_replace($k,$v,$date);
+        }
+        foreach ($this->transations[$langcode]["MONTHS"] as $k=>$v){
+            $date=str_replace($k,$v,$date);
+        }
+        return $date;
+    }
+
     /**
      * Renvoie une date formatée à partir d'un texte qui ressemble à une date
      * @param string $dateString une date en texte compréhensible par strtotime
@@ -154,4 +197,8 @@ class DateUtils extends AbstractSingleton
 
 
     }
+
+
+
+
 }
