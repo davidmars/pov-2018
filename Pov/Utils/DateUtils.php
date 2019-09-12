@@ -91,6 +91,32 @@ class DateUtils extends AbstractSingleton
     }
 
     /**
+     * Detecte si la date demandée est hier, aujourd'hui ou demain
+     * @param DateTime $date
+     * @return string today | yesterday | tomorow
+     */
+    public function isYesterdayTodayTomorow($date){
+        //détecter aujourd'hui hier et demain...
+        $today = new \DateTime(); // This object represents current date/time
+        $today->setTime( 0, 0, 0 ); // reset time part, to prevent partial comparison
+        $match_date = $date;
+        $match_date->setTime( 0, 0, 0 ); // reset time part, to prevent partial comparison
+        $diff = $today->diff( $match_date );
+        $diffDays = (integer)$diff->format( "%R%a" ); // Extract days count in interval
+        $particular="";
+        switch( $diffDays ) {
+            case 0:
+                return "today";
+            case -1:
+                return "yesterday";
+            case +1:
+                return "tomorow";
+            default:
+                return "";
+        }
+    }
+
+    /**
      * Formate la date dasn la langue spécifiée
      * @param \DateTime $dateTime
      * @param string $format something like "l d M Y" to get something like lundi 31 décembre 2014
