@@ -91,6 +91,15 @@ class DateUtils extends AbstractSingleton
     }
 
     /**
+     * Maintenant sous forme de DateTime
+     * @return DateTime
+     * @throws \Exception
+     */
+    public function now(){
+        return new DateTime();
+    }
+
+    /**
      * Detecte si la date demandée est hier, aujourd'hui ou demain
      * @param DateTime $date
      * @return string today | yesterday | tomorow
