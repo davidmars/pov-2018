@@ -7,6 +7,7 @@ namespace Pov\Html;
 class FaviconCollection
 {
     public $icon144="";
+    public $icon192="";
     public $icon114="";
     public $icon72="";
     public $icon57="";

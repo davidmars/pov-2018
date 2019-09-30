@@ -113,6 +113,9 @@ if(!is_a($vv,"Pov\Html\Layout")){
 <?if($vv->favicon->icon144):?>
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo $vv->favicon->icon144?>">
 <?endif?>
+<?if($vv->favicon->icon192):?>
+    <link rel="apple-touch-icon-precomposed" sizes="192x192" href="<?php echo $vv->favicon->icon192?>">
+<?endif?>
 <?if($vv->favicon->icon114):?>
 <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo $vv->favicon->icon114?>">
 <?endif?>
