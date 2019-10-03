@@ -111,16 +111,64 @@ class DateUtils extends AbstractSingleton
     /**
      * Maintenant sous forme de DateTime
      * @return DateTime
-     * @throws \Exception
      */
     public function now(){
-        return new DateTime();
+        try{
+            $d=new DateTime();
+        }catch (\Exception $e){}
+
+        return $d;
+    }
+    /**
+     * Renvoie la date il y a X heures
+     * @param int $hours Nombre d'heures à retirer
+     * @return DateTime
+     */
+    public function xHoursAgo($hours){
+        try{
+            $d=$this->now()->sub(new \DateInterval("P".$hours."H"));
+        }catch (\Exception $e){}
+        return $d;
+    }
+    /**
+     * Renvoie la date dans X heures
+     * @param int $hours Nombre d'heures à ajouter
+     * @return DateTime
+     */
+    public function xHoursLater($hours){
+        try{
+            $d=$this->now()->add(new \DateInterval("P".$hours."H"));
+        }catch (\Exception $e){}
+        return $d;
+    }
+
+    /**
+     * Renvoie la date il y a X jours
+     * @param int $hours Nombre d'heures à retirer
+     * @return DateTime
+     */
+    public function xDaysAgo($hours){
+        try{
+            $d=$this->now()->sub(new \DateInterval("P".$hours."D"));
+        }catch (\Exception $e){}
+        return $d;
+    }
+    /**
+     * Renvoie la date dans X jour
+     * @param int $hours Nombre d'heures à ajouter
+     * @return DateTime
+     */
+    public function xDaysLater($hours){
+        try{
+            $d=$this->now()->add(new \DateInterval("P".$hours."D"));
+        }catch (\Exception $e){}
+        return $d;
     }
 
     /**
      * Detecte si la date demandée est hier, aujourd'hui ou demain
      * @param DateTime $date
-     * @return string today | yesterday | tomorow
+     * @return string today | yesterday | tomorow ou rien
      */
     public function isYesterdayTodayTomorow($date){
         //détecter aujourd'hui hier et demain...
