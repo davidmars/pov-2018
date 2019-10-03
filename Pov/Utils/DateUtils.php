@@ -43,6 +43,18 @@ class DateUtils extends AbstractSingleton
                "November"=>"Novembre ",
                "December"=>"Décembre ",
            ],
+           "MISC"=> [
+               "now"=>"à l'instant",
+               "Now"=>"À l'instant",
+               "Today"=>"Aujourd'hui",
+               "Yesterday"=>"Hier",
+               "Tomorow"=>"Demain",
+               "days"=>"jours"
+           ],
+           "REGS"=> [
+               "/([0-9]*) minutes ago/"=>"il y a $1 minutes",
+               "/([0-9]*) hours ago/"=>"il y a $1 heures"
+           ],
         ]
     ];
 
@@ -57,6 +69,12 @@ class DateUtils extends AbstractSingleton
         }
         foreach ($this->transations[$langcode]["MONTHS"] as $k=>$v){
             $date=str_replace($k,$v,$date);
+        }
+        foreach ($this->transations[$langcode]["MISC"] as $k=>$v){
+            $date=str_replace($k,$v,$date);
+        }
+        foreach ($this->transations[$langcode]["REGS"] as $k=>$v){
+            $date=preg_replace("$k",$v,$date);
         }
         return $date;
     }
@@ -199,7 +217,7 @@ class DateUtils extends AbstractSingleton
             }
             //less than one hour
             if($dif->h<1){
-                return $dif->i." minutes";
+                return $dif->i." minutes ago";
             }
         }
 
@@ -216,7 +234,7 @@ class DateUtils extends AbstractSingleton
             $r="Yesterday";
         }elseif($dif->days<7){
             //less than a week
-            $r=$dif->days." days";
+            $r=$dif->days." days ago";
         }else{
             $r=$dateTime->format("d ").$dateTime->format("M");
             if($dateTime->format("Y")!=$now->format("Y")){
