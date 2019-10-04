@@ -53,7 +53,8 @@ class DateUtils extends AbstractSingleton
            ],
            "REGS"=> [
                "/([0-9]*) minutes ago/"=>"il y a $1 minutes",
-               "/([0-9]*) hours ago/"=>"il y a $1 heures"
+               "/([0-9]*) hours ago/"=>"il y a $1 heures",
+               "/([0-9]*) days ago/"=>"il y a $1 jours"
            ],
         ]
     ];
@@ -64,6 +65,9 @@ class DateUtils extends AbstractSingleton
      * @return mixed
      */
     public function translate($date,$langcode="fr"){
+        foreach ($this->transations[$langcode]["REGS"] as $k=>$v){
+            $date=preg_replace("$k",$v,$date);
+        }
         foreach ($this->transations[$langcode]["DAYS"] as $k=>$v){
             $date=str_replace($k,$v,$date);
         }
@@ -73,9 +77,7 @@ class DateUtils extends AbstractSingleton
         foreach ($this->transations[$langcode]["MISC"] as $k=>$v){
             $date=str_replace($k,$v,$date);
         }
-        foreach ($this->transations[$langcode]["REGS"] as $k=>$v){
-            $date=preg_replace("$k",$v,$date);
-        }
+
         return $date;
     }
 
@@ -126,7 +128,7 @@ class DateUtils extends AbstractSingleton
      */
     public function xHoursAgo($hours){
         try{
-            $d=$this->now()->sub(new \DateInterval("P".$hours."H"));
+            $d=$this->now()->sub(new \DateInterval("PT".$hours."H"));
         }catch (\Exception $e){}
         return $d;
     }
@@ -137,30 +139,30 @@ class DateUtils extends AbstractSingleton
      */
     public function xHoursLater($hours){
         try{
-            $d=$this->now()->add(new \DateInterval("P".$hours."H"));
+            $d=$this->now()->add(new \DateInterval("PT".$hours."H"));
         }catch (\Exception $e){}
         return $d;
     }
 
     /**
      * Renvoie la date il y a X jours
-     * @param int $hours Nombre d'heures à retirer
+     * @param int $days Nombre de jours à retirer
      * @return DateTime
      */
-    public function xDaysAgo($hours){
+    public function xDaysAgo($days){
         try{
-            $d=$this->now()->sub(new \DateInterval("P".$hours."D"));
+            $d=$this->now()->sub(new \DateInterval("P".$days."D"));
         }catch (\Exception $e){}
         return $d;
     }
     /**
-     * Renvoie la date dans X jour
-     * @param int $hours Nombre d'heures à ajouter
+     * Renvoie la date dans X jours
+     * @param int $days Nombre de jours à ajouter
      * @return DateTime
      */
-    public function xDaysLater($hours){
+    public function xDaysLater($days){
         try{
-            $d=$this->now()->add(new \DateInterval("P".$hours."D"));
+            $d=$this->now()->add(new \DateInterval("P".$days."D"));
         }catch (\Exception $e){}
         return $d;
     }
