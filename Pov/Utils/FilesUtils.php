@@ -13,29 +13,52 @@ use Pov\System\AbstractSingleton;
 class FilesUtils extends AbstractSingleton
 {
     /**
-     * Renvoie un fichier aléatoire dans le répertoire donné
-     * @param string $dir
-     * @return string|null
+     * Renvoie la liste des fichiers dans un répertoire
+     * @param string $dir le répertoire
+     * @param array $extensions listes d'extension de fichiers acceptés
+     * @return string[] liste des fichiers trouvés
      * @throws \Exception
      */
-    public function getRandomFileInDir($dir){
+    public function getFilesInDir($dir, $extensions=[]){
+        if($extensions){
+            $extensions=".{".implode(",",$extensions)."}";
+        }else{
+            $extensions="";
+        }
+        $dir=trim($dir,"/");
         if(!is_dir($dir)){
             throw new \Exception("$dir n'est pas un repertoire");
         }
-        $files = scandir($dir);
+        $files = glob("$dir/*$extensions", GLOB_BRACE);
         $arr=[];
         foreach ($files as $f){
-            $file= $dir."/".$f;
+            $file= $f;
             if(is_file($file)){
                 $arr[]=$file;
             }
         }
-        if($arr){
-            shuffle($arr);
-            return array_pop($arr);
-        }else{
+        return $arr;
+    }
+
+    /**
+     * Renvoie un fichier (pseudo)aléatoire dans le répertoire donné
+     * @param string $dir
+     * @param string[] $extensions Extensions possibles
+     * @param null $pseudoRandString Une chaine qui permet de maitriser le côté aléatoire de la chose
+     * @return string|null
+     * @throws \Exception
+     */
+    public function getRandomFileInDir($dir,$extensions=[],$pseudoRandString=null){
+        $files=$this->getFilesInDir($dir,$extensions);
+        if(!$files){
             return null;
         }
+        if(!$pseudoRandString){
+            $pseudoRandString=rand(0,9999);
+        }
+        $rand=MathUtils::inst()->randFromString($pseudoRandString,0,count($files));
+        return $files[$rand];
+
     }
 
     /**

@@ -52,6 +52,7 @@ class DateUtils extends AbstractSingleton
                "days"=>"jours"
            ],
            "REGS"=> [
+               "/([0-9]*) minute ago/"=>"il y a $1 minute",
                "/([0-9]*) minutes ago/"=>"il y a $1 minutes",
                "/([0-9]*) hours ago/"=>"il y a $1 heures",
                "/([0-9]*) days ago/"=>"il y a $1 jours"
@@ -264,6 +265,10 @@ class DateUtils extends AbstractSingleton
             //less than one minute
             if($dif->i<1){
                 return "now";
+            }
+            //one minute
+            if($dif->i==1){
+                return $dif->i." minute ago";
             }
             //less than one hour
             if($dif->h<1){
