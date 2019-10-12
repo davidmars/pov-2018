@@ -150,13 +150,37 @@ export default class PovApi{
      * @param {function} cbProgress Renvoie la progression sous forme de : pourcentage, bytesuploadés, bytesTotaux
      * @param {function} cbComplete Renvoie un ApiReturn avec le fichier
      * @param {function} cbError Renvoie un ApiReturn avec les erreurs
+     * @param {function} cbReader Renvoie le reader une fois qu'il est loadend, ce qui permet par exemple d'afficher une image de preview comme ceci $img.prop('src',reader.result)
      */
-    static uploadChuncked(file,cbProgress,cbComplete,cbError){
-        let uploadUrl = LayoutVars.rootUrl+"/povApi/upload";
+    static uploadChuncked(file,cbProgress,cbComplete,cbError,cbReader) {
+        let uploadUrl = LayoutVars.rootUrl + "/povApi/upload";
+
+
+        var reader = new FileReader();
+        reader.onloadend = function (evt) {
+            let binary = evt.target.result;
+            testFileIdentifier(binary);
+        };
+        //reader pour une preview
+        if (cbReader) {
+            var readerDataUrl = new FileReader();
+            readerDataUrl.onloadend = function (evt) {
+                if (cbReader) {
+                    cbReader(readerDataUrl);
+                }
+            };
+
+            readerDataUrl.readAsDataURL(file);
+        }
+
+
+        //pour l'upload
+        reader.readAsBinaryString(file);
 
         //--------------1 va tester si le fichier existe déjà----------------
-        var reader = new FileReader();
-        reader.readAsBinaryString(file);
+
+
+
         function testFileIdentifier(binary){
             let localFileIdentifier=md5(binary);
             let url=uploadUrl;
@@ -184,10 +208,7 @@ export default class PovApi{
                 }
             });
         }
-        reader.onloadend = function (evt) {
-            let binary = evt.target.result;
-            testFileIdentifier(binary);
-        };
+
 
 
         //-----------------2 l'upload---------------------------------
