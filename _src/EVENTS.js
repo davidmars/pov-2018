@@ -61,6 +61,10 @@ var EVENTS={
      */
     SELECT:"SELECT",
     /**
+     * History étape 0 juste avant que l'url ne change
+     */
+    HISTORY_WILL_CHANGE_URL:"HISTORY_WILL_CHANGE_URL",
+    /**
      * History étape 1 Quand l'url change
      */
     HISTORY_CHANGE_URL:"HISTORY_CHANGE_URL",

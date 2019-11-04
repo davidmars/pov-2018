@@ -57,6 +57,7 @@ export default class PovHistory{
      * @param {Boolean} preventPushState si true ne rajoute pas l'url à l'history (utilisé pour les back / prev)
      */
     static goUrl(url,$href,event,preventPushState=false){
+        Pov.events.dispatchDom($body,EVENTS.HISTORY_WILL_CHANGE_URL);
         console.log("goUrl",url,$href,event);
         if(!preventPushState){
             history.pushState({ url: url }, "...",url,true );
