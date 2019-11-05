@@ -30,9 +30,9 @@ export default class PovHistory{
             }
         });
         window.onpopstate=function(event){
+
             let url=location.href;
             console.log("Back / next button?",event);
-            console.log("url is...",url);
             if(!url.match(/#/)){
                 me.goUrl(url,null,event);
             }else{
