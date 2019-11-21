@@ -244,6 +244,11 @@ class Layout {
      * @var string id de l'app facebook
      */
     public $facebookAppId="";
+
+    /**
+     * @var string id de vérification Pinterest
+     */
+    public $pinterestDomainVerification="";
     /**
      * @var string code linguistiquye de la page (fr par défaut)
      */

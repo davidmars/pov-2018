@@ -46,6 +46,15 @@ if(!is_a($vv,"Pov\Html\Layout")){
 <?endif?>
 <?
 
+//Pinterest domain verification
+
+?>
+<?if($vv->pinterestDomainVerification):?>
+<meta name="p:domain_verify" content="<?=$vv->pinterestDomainVerification?>"/>
+<?endif?>
+
+<?
+
 //Facebook API
 
 ?>
