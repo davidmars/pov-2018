@@ -46,7 +46,7 @@ class StringUtils extends AbstractSingleton {
      */
     public function fixHtml($html){
         $doc = new \DOMDocument;
-        @$doc->loadHTML($html);
+        @$doc->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
         $nodes = $doc->getElementsByTagName('body')->item(0);
         if($nodes){
             $nodes = $nodes->childNodes;
