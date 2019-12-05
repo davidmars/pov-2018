@@ -9,6 +9,7 @@ import Xdebug from "./xdebug/Xdebug";
 
 export default class PovHistory{
 
+
     static init(){
         let me=this;
         //initialise les href qui sont dans un [history-hrefs]
@@ -25,18 +26,24 @@ export default class PovHistory{
                 e.preventDefault();
                 return false;
             }else{
-                console.log("PovHistory","lien non compatible");
+                if(PovHistory.logLevel>0) {
+                    console.log("PovHistory", "lien non compatible");
+                }
                 e.stopPropagation();
             }
         });
         window.onpopstate=function(event){
 
             let url=location.href;
-            console.log("Back / next button?",event);
+            if(PovHistory.logLevel>0) {
+                console.log("Back / next button?", event);
+            }
             if(!url.match(/#/)){
                 me.goUrl(url,null,event);
             }else{
-                console.log("#anchor = pas d'ajax");
+                if(PovHistory.logLevel>0) {
+                    console.log("#anchor = pas d'ajax");
+                }
             }
 
         };
@@ -58,7 +65,9 @@ export default class PovHistory{
      */
     static goUrl(url,$href,event,preventPushState=false){
         Pov.events.dispatchDom($body,EVENTS.HISTORY_WILL_CHANGE_URL);
-        console.log("goUrl",url,$href,event);
+        if(PovHistory.logLevel>0) {
+            console.log("goUrl", url, $href, event);
+        }
         if(!preventPushState){
             history.pushState({ url: url }, "...",url,true );
         }
@@ -84,8 +93,6 @@ export default class PovHistory{
                 povHistory:true
             },
             success: function(e){
-                //console.log("loadED page",url);
-                //console.log("loadED page result",e);
                 if(e.json.pageInfo){
                     PovHistory.currentPageInfo=e.json.pageInfo;
                 }
@@ -133,8 +140,13 @@ export default class PovHistory{
             Pov.events.dispatchDom($target,Pov.events.DOM_CHANGE);
             Pov.events.dispatchDom($target,EVENTS.HISTORY_CHANGE_URL_LOADED_INJECTED);
         }else{
-            //console.log("pas prêt pour injecter la page, on réésayera");
-            setTimeout(function(){
+            if(PovHistory.logLevel>0) {
+                console.log("pas prêt pour injecter la page, on réésayera");
+            }
+            if(PovHistory._injectTimeout){
+                clearTimeout(PovHistory._injectTimeout);
+            }
+            PovHistory._injectTimeout=setTimeout(function(){
                 PovHistory.injectHtml(html);
             },200);
         }
@@ -178,6 +190,8 @@ PovHistory.readyToinject=true;
  * @type {object}
  */
 PovHistory.currentPageInfo={};
+
+PovHistory.logLevel=0;
 
 
 
