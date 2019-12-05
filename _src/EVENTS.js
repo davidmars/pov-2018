@@ -69,6 +69,10 @@ var EVENTS={
      */
     HISTORY_CHANGE_URL:"HISTORY_CHANGE_URL",
     /**
+     * History étape 1 Quand l'url change à cause d'un BACK bouton
+     */
+    HISTORY_CHANGE_URL_BACK:"HISTORY_CHANGE_URL_BACK",
+    /**
      * History étape 2 Quand l'url a changé et qu'on a commencé à charger la page
      */
     HISTORY_CHANGE_URL_LOADING:"HISTORY_CHANGE_URL_LOADING",

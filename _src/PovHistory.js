@@ -39,6 +39,7 @@ export default class PovHistory{
                 console.log("Back / next button?", event);
             }
             if(!url.match(/#/)){
+                Pov.events.dispatchDom($body,EVENTS.HISTORY_CHANGE_URL_BACK);
                 me.goUrl(url,null,event);
             }else{
                 if(PovHistory.logLevel>0) {
