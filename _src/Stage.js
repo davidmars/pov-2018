@@ -15,6 +15,12 @@ export default class Stage extends EventEmitter{
         let me=this;
 
         /**
+         * Est on en full screen ou non?
+         * @type {boolean}
+         */
+        this.isFullScreen=false;
+
+        /**
          * Hauteur de l'intérieur de la fenêtre
          * @type {number} window.innerHeight
          */
@@ -99,8 +105,10 @@ export default class Stage extends EventEmitter{
             me.emit(EVENTS.RESIZE);
             me.emit(EVENTS.FULL_SCREEN_CHANGE);
             if(document.webkitIsFullScreen || document.mozFullscreen || document.fullScreen){
+                me.isFullScreen=true;
                 me.emit(EVENTS.FULL_SCREEN_ENTER);
             }else{
+                me.isFullScreen=false;
                 me.emit(EVENTS.FULL_SCREEN_CANCEL);
             }
         }
