@@ -39,10 +39,6 @@ class Installer
         if(!file_exists("index.php")){
             copy(__DIR__."/../_install/index.php","index.php");
         }
-        //crée le répertoire/fichier configs/routes/127.0.0.1/mon-projet.php
-        if(!is_dir("configs/routes/127.0.0.1")){
-            mkdir("configs/routes/127.0.0.1",0777,true);
-        }
         if(!is_dir("files")){
             mkdir("files");
         }
