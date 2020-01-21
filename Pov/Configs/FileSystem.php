@@ -34,10 +34,6 @@ class FileSystem {
      */
     public $logsPath="";
     /**
-     * @var string le répertoire où sont stockés les fichiers générés
-     */
-    public $buildsPath="";
-    /**
      * @var string le répertoire où sont stockés les fichiers en cache
      */
     public $cachePath="";
@@ -58,7 +54,7 @@ class FileSystem {
     {
         $localPath="files/".trim($localPath,"/");
         $this->rootPath = $localPath;
-        $dirs=["tmp","trash","db","uploads","logs","builds","cache"];
+        $dirs=["tmp","trash","db","uploads","logs","cache"];
         foreach($dirs as $subDir){
             $fullPath=$this->rootPath."/".$subDir;
             if(!is_dir($fullPath)){
@@ -70,7 +66,6 @@ class FileSystem {
         $this->dbPath=$this->rootPath."/db";
         $this->uploadsPath=$this->rootPath."/uploads";
         $this->logsPath=$this->rootPath."/logs";
-        $this->buildsPath=$this->rootPath."/builds";
         $this->cachePath=$this->rootPath."/cache";
 
     }
