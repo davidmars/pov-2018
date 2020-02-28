@@ -32,8 +32,10 @@ class DateUtils extends AbstractSingleton
            "MONTHS"=> [
                "January"=>"Janvier",
                "February"=>"Février",
+               " Feb "=>" Fév ",
                "March"=>"Mars",
                "April"=>"Avril",
+               " Apr "=>" Avr ",
                "May"=>"Mai",
                "June"=>"Juin",
                "July"=>"Juillet",
