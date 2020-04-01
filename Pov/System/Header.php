@@ -177,6 +177,8 @@ class Header {
     {
         $this->addHeader("Access-Control-Allow-Origin",$orgin);
         $this->addHeader("Access-Control-Expose-Headers","*");
+        $this->addHeader("Access-Control-Allow-Headers","*");
+        $this->addHeader("Access-Control-Allow-Methods","*");
     }
     private $headers=[];
 
