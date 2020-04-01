@@ -176,6 +176,7 @@ class Header {
     public function enableCORS($orgin="*")
     {
         $this->addHeader("Access-Control-Allow-Origin",$orgin);
+        $this->addHeader("Access-Control-Expose-Headers","*");
     }
     private $headers=[];
 
