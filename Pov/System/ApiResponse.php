@@ -40,8 +40,16 @@ class ApiResponse {
      */
     public $when;
 
+    private $_usePayload=false;
+    /**
+     * Soit $_REQUEST soit le payload
+     * @var array
+     */
+    public $requestData=[];
+
     public function __construct(){
         $this->when=new \DateTime();
+        $this->requestData=$_REQUEST;
     }
 
 
@@ -106,8 +114,16 @@ class ApiResponse {
         $this->json=$object;
     }
 
-
-
+    /**
+     * Quand défini sur true dit que la source de données n'est plus REQUEST mais le fileinput json
+     * Ce mode est à utiliser avec les requeêtes POST de axios par exemple
+     * @param bool $use
+     */
+    public function usePayload($use=true){
+        $this->_usePayload=$use;
+        $request_body = file_get_contents('php://input');
+        $this->requestData= utils()->array->fromObject(json_decode($request_body));
+    }
 
 
 
@@ -118,10 +134,32 @@ class ApiResponse {
      */
     public function testMandatoryRequest($requestParameters){
         foreach($requestParameters as $p){
-            if(!isset($_REQUEST[$p])){
+            if(!isset($this->requestData[$p])){
                 $this->addError("The \$_REQUEST[$p] parameter is mandatory");
             }
         }
+    }
+
+    /**
+     * Renvoie un paramètre que l'on peut trouver dans $_REQUEST
+     * @param string $queryParam Le paramètre Get ou Post
+     * @param mixed   $ifNull La valeur à renvoyer si null ou indéfini
+     * @return string|array|null
+     */
+    public function getRequest($queryParam,$ifNull=null)
+    {
+        if(isset($this->requestData[$queryParam])){
+            if(is_array($ifNull)){
+                $checked = $_REQUEST[$queryParam];
+                $ret=[];
+                for($i=0; $i < count($checked); $i++){
+                    $ret[]=$checked[$i];
+                }
+                return $ret;
+            }
+            return $this->requestData[$queryParam];
+        }
+        return $ifNull;
     }
 
     /**
@@ -134,10 +172,10 @@ class ApiResponse {
      */
     public function testAndGetRequest($requestParameter,$errorMessageIfNotSet=null,$errorIfEmpty=false){
 
-        $isDefined=isset($_REQUEST[$requestParameter]);
+        $isDefined=isset($this->requestData[$requestParameter]);
         $isEmpty=false;
         if($isDefined){
-            if(is_string($_REQUEST[$requestParameter]) && trim($_REQUEST[$requestParameter])==""){
+            if(is_string($this->requestData[$requestParameter]) && trim($this->requestData[$requestParameter])==""){
                 $isEmpty=true;
             }
         }
@@ -149,7 +187,7 @@ class ApiResponse {
             }
             return null;
         }else{
-            return $_REQUEST[$requestParameter];
+            return $this->requestData[$requestParameter];
         }
     }
 
