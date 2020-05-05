@@ -109,7 +109,15 @@ class Boot {
                 }
             }
         }
-
+        if(!$confFile){
+            //va tenter avec default.php
+            $toTest="configs/routes/default.php";
+            if(file_exists($toTest) && is_file($toTest)){
+                $confFile=$toTest;
+                require_once $confFile;
+                $urlBase=the()->configProjectUrl->httpPath;
+            }
+        }
         if(!$confFile){
             //va tenter avec configs/all-domains/directory/path.php
             $fullUrl="all-domains"."/".the()->requestUrl->path;
