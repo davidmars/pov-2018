@@ -122,7 +122,9 @@ class ApiResponse {
     public function usePayload($use=true){
         $this->_usePayload=$use;
         $request_body = file_get_contents('php://input');
-        $this->requestData= utils()->array->fromObject(json_decode($request_body));
+        if($request_body){
+            $this->requestData= utils()->array->fromObject(json_decode($request_body));
+        }
     }
 
 
