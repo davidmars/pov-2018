@@ -22,12 +22,19 @@ class DateUtils extends AbstractSingleton
         "fr"=>[
            "DAYS"=> [
                "Monday"=>"Lundi",
+               "Mon"=>"Lun",
                "Tuesday"=>"Mardi",
+               "Tue"=>"Mar",
                "Wednesday"=>"Mercredi",
+               "Wed"=>"Mer",
                "Thursday"=>"Jeudi",
+               "Thu"=>"Jeu",
                "Friday"=>"Vendredi",
+               "Fri"=>"Ven",
                "Saturday"=>"Samedi",
-               "Sunday"=>"Dimanche"
+               "Sat"=>"Sam",
+               "Sunday"=>"Dimanche",
+               "Sun"=>"Dim"
            ],
            "MONTHS"=> [
                "January"=>"Janvier",
