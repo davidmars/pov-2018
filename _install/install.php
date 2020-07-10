@@ -17,8 +17,8 @@
 //on est sensé être dans /vendor/pov-2018/_install
 $dir=__DIR__."/../../configs/routes";
 ?>
-Création du répertoire des configs dans <code><?=$dir?></code><br>
-<?
+Création du répertoire des configs dans <code><?php echo $dir?></code><br>
+<?php
 
 if(is_dir($dir)){
     $r="Existait déjà";
@@ -28,7 +28,7 @@ if(is_dir($dir)){
 }
 
 ?>
-<pre><?=$r?></pre>
+<pre><?php echo $r?></pre>
 
 
 
@@ -38,8 +38,8 @@ if(is_dir($dir)){
 <?php
 $dir= __DIR__ . "/../files";
 ?>
-Création du répertoire files dans <code><?=$dir?></code><br>
-<?
+Création du répertoire files dans <code><?php echo $dir?></code><br>
+<?php
 if(is_dir($dir)){
     $r="Existait déjà";
 }else{
@@ -48,7 +48,7 @@ if(is_dir($dir)){
 }
 
 ?>
-<pre><?=$r?></pre>
+<pre><?php echo $r?></pre>
 
 
 
@@ -57,8 +57,8 @@ if(is_dir($dir)){
 $file= __DIR__ . "/.htaccess";
 $targetFile=__DIR__."/../.htaccess";
 ?>
-Déplaçage du htaccess dans <code><?=$targetFile?></code><br>
-<?
+Déplaçage du htaccess dans <code><?php echo $targetFile?></code><br>
+<?php
 
 if(is_file($file) && !is_file($targetFile)){
     $r=copy($file,$targetFile);
@@ -74,7 +74,7 @@ if(is_file($file) && !is_file($targetFile)){
 }
 
 ?>
-<pre><?=$r?></pre>
+<pre><?php echo $r?></pre>
 
 <hr>
 

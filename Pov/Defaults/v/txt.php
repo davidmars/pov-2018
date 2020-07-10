@@ -7,4 +7,4 @@ use Pov\System\Header;
 
 /* @var $vv string */
 the()->headerOutput->code=Header::TXT
-?><?=$vv?>
+?><?php echo $vv?>

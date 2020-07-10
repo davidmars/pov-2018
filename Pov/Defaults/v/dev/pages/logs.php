@@ -111,36 +111,36 @@ function logLevelToCss($logLevel){
         </div>
 
         <div>
-            <?if($reader || the()->fileSystem->logFilesList()):?>
+            <?php if($reader || the()->fileSystem->logFilesList()):?>
 
                 <div class="uk-button-group">
 
                     <div class="uk-inline">
                         <button class="uk-button uk-button-default" type="button">
                             <span class="uk-margin-small-right" uk-icon="icon: chevron-down"></span>
-                            <?=$logFile?>
+                            <?php echo $logFile?>
                         </button>
 
                         <div uk-dropdown="mode: click">
                             <ul class="uk-nav uk-dropdown-nav">
-                                <?foreach (the()->fileSystem->logFilesList() as $file):?>
-                                    <li class="<?=$file==$logFile?"uk-active":""?>"><a href="?logFile=<?=$file?>"><?=$file?></a></li>
-                                <?endforeach;?>
+                                <?php foreach (the()->fileSystem->logFilesList() as $file):?>
+                                    <li class="<?php echo $file==$logFile?"uk-active":""?>"><a href="?logFile=<?php echo $file?>"><?php echo $file?></a></li>
+                                <?php endforeach; ?>
                             </ul>
                         </div>
                     </div>
 
                     <div class="uk-inline">
-                        <a href="?delete=<?=$logFile?>" class="uk-button uk-button-danger" type="button">
+                        <a href="?delete=<?php echo $logFile?>" class="uk-button uk-button-danger" type="button">
                             <span uk-icon="icon:  trash"></span>
                         </a>
                     </div>
 
                 </div>
 
-            <?else:?>
+            <?php else: ?>
                 <span class="uk-label uk-label-danger">pas de logs</span>
-            <?endif;?>
+            <?php endif; ?>
 
         </div>
     </div>
@@ -151,7 +151,7 @@ function logLevelToCss($logLevel){
 
     <hr>
 
-    <?if($reader):?>
+    <?php if($reader):?>
 
     <table class="uk-table uk-table-divider uk-table-hover">
         <thead>
@@ -167,54 +167,54 @@ function logLevelToCss($logLevel){
         </thead>
         <tbody>
 
-        <?foreach ($logs as $log):?>
-            <?if($log):?>
-            <?$log=new \Dubture\Monolog\Reader\LineLog($log)?>
+        <?php foreach ($logs as $log):?>
+            <?php if($log):?>
+            <?php $log=new \Dubture\Monolog\Reader\LineLog($log)?>
 
             <tr>
-                <td><span class="uk-label <?=logLevelToCss($log->level)?>"><?=$log->level?></span></td>
-                <td><?=$log->message?></td>
+                <td><span class="uk-label <?php echo logLevelToCss($log->level)?>"><?php echo $log->level?></span></td>
+                <td><?php echo $log->message?></td>
                 <td class="td-boot">
                     <div class="boot-elements">
-                        <?=bootColorized($log->extra->ip)?>
-                        <?=bootColorized($log->extra->sessid)?>
-                        <?=bootColorized($log->extra->bootid)?>
-                        <?=bootColorized($log->extra->boottime)?>
+                        <?php echo bootColorized($log->extra->ip)?>
+                        <?php echo bootColorized($log->extra->sessid)?>
+                        <?php echo bootColorized($log->extra->bootid)?>
+                        <?php echo bootColorized($log->extra->boottime)?>
 
                     </div>
                 </td>
                 <td class="code">
-                    <b>url</b> <?=$log->extra->url?><br>
-                    <b>file</b> <?=$log->extra->file?> @ <?=$log->extra->line?><br>
-                    <b>Class/Method</b> <?=$log->extra->class?> <b>/</b> <?=$log->extra->function?>  <br>
+                    <b>url</b> <?php echo $log->extra->url?><br>
+                    <b>file</b> <?php echo $log->extra->file?> @ <?php echo $log->extra->line?><br>
+                    <b>Class/Method</b> <?php echo $log->extra->class?> <b>/</b> <?php echo $log->extra->function?>  <br>
                 </td>
-                <td  class="code"><?=nl2br(pov()->debug->dump($log->context))?></td>
+                <td  class="code"><?php echo nl2br(pov()->debug->dump($log->context))?></td>
                 <td class="time" style="position:relative;">
-                    <?=ipColorized($log->extra->ip)?><br>
-                    <?=ipColorized($log->extra->os)?><br>
-                    <?=ipColorized($log->extra->browser)?>
-                    <?/*
+                    <?php echo ipColorized($log->extra->ip)?><br>
+                    <?php echo ipColorized($log->extra->os)?><br>
+                    <?php echo ipColorized($log->extra->browser)?>
+                    <?php /*
                     <pre style="max-width: 500px;word-wrap: break-word;">
-                        <?=json_encode($log->extra,JSON_PRETTY_PRINT)?>
+                        <?php echo json_encode($log->extra,JSON_PRETTY_PRINT)?>
                     </pre>
                     */?>
                 </td>
-                <td class="time"><?=$log->date->format("H:i:s")?><br><?=$log->date->format("Y-m-d")?></td>
+                <td class="time"><?php echo $log->date->format("H:i:s")?><br><?php echo $log->date->format("Y-m-d")?></td>
             </tr>
-            <?endif;?>
-        <?endforeach;?>
+            <?php endif; ?>
+        <?php endforeach; ?>
 
         </tbody>
     </table>
 
-    <?/*
+    <?php /*
     <h1>Raw stuffff</h1>
-    <?foreach ($reader as $log):?>
-        <?var_dump($log)?>
+    <?php foreach ($reader as $log):?>
+        <?php var_dump($log)?>
         <hr>
-    <?endforeach;?>
+    <?php endforeach; ?>
     */?>
-    <?endif;?>
+    <?php endif; ?>
 
 
 </div>

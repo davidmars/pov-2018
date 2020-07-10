@@ -1,9 +1,9 @@
 <?php
 $redirect=$vv;
 ?>
-redirect to <code><?=$redirect?></code>
+redirect to <code><?php echo $redirect?></code>
 <script>
     setTimeout(function(){
-        document.location="<?=$redirect?>";
+        document.location="<?php echo $redirect?>";
     },1 *1000);
 </script>

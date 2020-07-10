@@ -9,76 +9,76 @@ if(!is_a($vv,"Pov\Html\Layout")){
 }
 ?>
 <!doctype html>
-<!--[if lt IE 7 ]>      <html lang="<?=$vv->meta->langCode ?>" class="no-js ie6" xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml"> <![endif]-->
-<!--[if IE 7 ]>         <html lang="<?=$vv->meta->langCode ?>" class="no-js ie7" xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml"> <![endif]-->
-<!--[if IE 8 ]>         <html lang="<?=$vv->meta->langCode ?>" class="no-js ie8" xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml"> <![endif]-->
+<!--[if lt IE 7 ]>      <html lang="<?php echo $vv->meta->langCode ?>" class="no-js ie6" xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml"> <![endif]-->
+<!--[if IE 7 ]>         <html lang="<?php echo $vv->meta->langCode ?>" class="no-js ie7" xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml"> <![endif]-->
+<!--[if IE 8 ]>         <html lang="<?php echo $vv->meta->langCode ?>" class="no-js ie8" xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html lang="<?=$vv->meta->langCode ?>" class="no-js" xmlns:og="http://opengraphprotocol.org/schema/"> <!--<![endif]-->
+<html lang="<?php echo $vv->meta->langCode ?>" class="no-js" xmlns:og="http://opengraphprotocol.org/schema/"> <!--<![endif]-->
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<?if($vv->base):?>
-<base href="<?=$vv->base?>">
-<?endif?>
-<?
+<?php if($vv->base):?>
+<base href="<?php echo $vv->base?>">
+<?php endif; ?>
+<?php
 
 //redirect javascript ?
 
 ?>
-<?if($vv->redirectJS):?>
-<script>document.location="<?=$vv->redirectJS?>";</script>
-<?endif;?>
-<?
+<?php if($vv->redirectJS):?>
+<script>document.location="<?php echo $vv->redirectJS?>";</script>
+<?php endif; ?>
+<?php
 
 //title, description etc...
 
 ?>
-<title><?=$vv->meta->title?></title>
-<meta name="description" content="<?=$vv->meta->description?>">
-<meta name="keywords" content="<?=$vv->meta->keywords?>">
-<meta name="twitter:card" content="<?=the()->htmlLayout()->twitterCardType?>" >
-<meta name="twitter:title" content="<?=$vv->meta->title?>" >
-<meta name="twitter:description" content="<?=$vv->meta->description?>" >
-<meta property="og:title" content="<?=$vv->meta->title?>" />
-<meta property="og:url" content="<?= the()->requestUrl->fullUrl?>" />
-<meta property="og:description" content="<?=$vv->meta->description?>" />
-<?if($vv->meta->author):?>
+<title><?php echo $vv->meta->title?></title>
+<meta name="description" content="<?php echo $vv->meta->description?>">
+<meta name="keywords" content="<?php echo $vv->meta->keywords?>">
+<meta name="twitter:card" content="<?php echo the()->htmlLayout()->twitterCardType?>" >
+<meta name="twitter:title" content="<?php echo $vv->meta->title?>" >
+<meta name="twitter:description" content="<?php echo $vv->meta->description?>" >
+<meta property="og:title" content="<?php echo $vv->meta->title?>" />
+<meta property="og:url" content="<?php echo  the()->requestUrl->fullUrl?>" />
+<meta property="og:description" content="<?php echo $vv->meta->description?>" />
+<?php if($vv->meta->author):?>
 <meta name="author" content="<?php echo $vv->meta->author?>">
-<?endif?>
-<?
+<?php endif; ?>
+<?php
 
 //Pinterest domain verification
 
 ?>
-<?if($vv->pinterestDomainVerification):?>
-<meta name="p:domain_verify" content="<?=$vv->pinterestDomainVerification?>"/>
-<?endif?>
+<?php if($vv->pinterestDomainVerification):?>
+<meta name="p:domain_verify" content="<?php echo $vv->pinterestDomainVerification?>"/>
+<?php endif; ?>
 
-<?
+<?php
 
 //Facebook API
 
 ?>
-<?if($vv->facebookAppId):?>
-<meta property="fb:app_id" content="<?=$vv->facebookAppId?>"/>
-<?endif?>
-<?
+<?php if($vv->facebookAppId):?>
+<meta property="fb:app_id" content="<?php echo $vv->facebookAppId?>"/>
+<?php endif; ?>
+<?php
 
 //google webmaster tools
 
 ?>
-<?if($vv->googleSiteVerification):?>
-<meta name="google-site-verification" content="<?=$vv->googleSiteVerification?>" />
-<?endif?>
-<?
+<?php if($vv->googleSiteVerification):?>
+<meta name="google-site-verification" content="<?php echo $vv->googleSiteVerification?>" />
+<?php endif; ?>
+<?php
 
 //languages
 
 ?>
-<link rel="canonical" href="<?=the()->requestUrl->fullUrl?>">
-<?foreach($vv->hreflangs as $lang=>$url):?>
-<link rel="alternate" hreflang="<?=$lang?>" href="<?=$url?>" />
-<?endforeach?>
-<?
+<link rel="canonical" href="<?php echo the()->requestUrl->fullUrl?>">
+<?php foreach($vv->hreflangs as $lang=>$url):?>
+<link rel="alternate" hreflang="<?php echo $lang?>" href="<?php echo $url?>" />
+<?php endforeach; ?>
+<?php
 
 //IE We love you---
 
@@ -87,120 +87,120 @@ if(!is_a($vv,"Pov\Html\Layout")){
 <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1,requiresactivex=true">
 <meta http-equiv="imagetoolbar" content="no">
 <![endif]-->
-<?
+<?php
 
 //Mobile
 
 ?>
 <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-<?
+<?php
 
 //OpenGraph (facebook mainly)--
 
 ?>
-<?if($vv->ogImage):?>
-<meta property="og:image" content="<?=$vv->ogImage?>">
-<meta name="twitter:image" content="<?=$vv->twitterImage()?>" >
-<?if($vv->ogImageHeight && $vv->ogImageHeight):?>
-<meta property="og:image:width" content="<?=$vv->ogImageWidth?>">
-<meta property="og:image:height" content="<?=$vv->ogImageHeight?>">
-<?endif?>
-<?endif?>
-<?if($vv->ogType):?>
-<meta property="og:type" content="<?=$vv->ogType?>">
-<?endif?>
+<?php if($vv->ogImage):?>
+<meta property="og:image" content="<?php echo $vv->ogImage?>">
+<meta name="twitter:image" content="<?php echo $vv->twitterImage()?>" >
+<?php if($vv->ogImageHeight && $vv->ogImageHeight):?>
+<meta property="og:image:width" content="<?php echo $vv->ogImageWidth?>">
+<meta property="og:image:height" content="<?php echo $vv->ogImageHeight?>">
+<?php endif; ?>
+<?php endif; ?>
+<?php if($vv->ogType):?>
+<meta property="og:type" content="<?php echo $vv->ogType?>">
+<?php endif; ?>
 
-<?if($vv->ogLatitude || $vv->ogLongitude):?>
-<meta property="place:location:latitude"  content="<?=$vv->ogLatitude?>" />
-<meta property="place:location:longitude" content="<?=$vv->ogLongitude?>" />
-<?endif?>
-<?
+<?php if($vv->ogLatitude || $vv->ogLongitude):?>
+<meta property="place:location:latitude"  content="<?php echo $vv->ogLatitude?>" />
+<meta property="place:location:longitude" content="<?php echo $vv->ogLongitude?>" />
+<?php endif; ?>
+<?php
 
 //-------Favicons-------
 
 ?>
-<?if($vv->favicon->icon144):?>
+<?php if($vv->favicon->icon144):?>
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo $vv->favicon->icon144?>">
-<?endif?>
-<?if($vv->favicon->icon192):?>
+<?php endif; ?>
+<?php if($vv->favicon->icon192):?>
     <link rel="apple-touch-icon-precomposed" sizes="192x192" href="<?php echo $vv->favicon->icon192?>">
-<?endif?>
-<?if($vv->favicon->icon114):?>
+<?php endif; ?>
+<?php if($vv->favicon->icon114):?>
 <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo $vv->favicon->icon114?>">
-<?endif?>
-<?if($vv->favicon->icon72):?>
+<?php endif; ?>
+<?php if($vv->favicon->icon72):?>
 <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo $vv->favicon->icon72?>">
-<?endif?>
-<?if($vv->favicon->icon57):?>
+<?php endif; ?>
+<?php if($vv->favicon->icon57):?>
 <link rel="apple-touch-icon-precomposed" sizes="57x57" href="<?php echo $vv->favicon->icon57?>">
-<?endif?>
-<?if($vv->favicon->favicon):?>
+<?php endif; ?>
+<?php if($vv->favicon->favicon):?>
 <link rel="shortcut icon" href="<?php echo $vv->favicon->favicon?>">
-<?endif;?>
-<?
+<?php endif; ?>
+<?php
 
 //themeColor
 
 ?>
-<?if($vv->meta->themeColor):?>
-<meta name="theme-color" content="<?=$vv->meta->themeColor?>">
-<meta name="msapplication-navbutton-color" content="<?=$vv->meta->themeColor?>">
-<meta name="apple-mobile-web-app-status-bar-style" content="<?=$vv->meta->themeColor?>">
-<?endif?>
-<?
+<?php if($vv->meta->themeColor):?>
+<meta name="theme-color" content="<?php echo $vv->meta->themeColor?>">
+<meta name="msapplication-navbutton-color" content="<?php echo $vv->meta->themeColor?>">
+<meta name="apple-mobile-web-app-status-bar-style" content="<?php echo $vv->meta->themeColor?>">
+<?php endif; ?>
+<?php
 
 //webapp
 
 ?>
-<?if($vv->webAppManifest):?>
+<?php if($vv->webAppManifest):?>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="manifest" href="<?=$vv->webAppManifest?>">
-<?endif?>
-<?
+<link rel="manifest" href="<?php echo $vv->webAppManifest?>">
+<?php endif; ?>
+<?php
 
 //CSS & JS header....
 
 ?>
-<?foreach($vv->cssHeaderFiles as $css):?>
-<?=$css->htmlTag()?>
-<?endforeach;?>
-<?foreach($vv->jsHeaderFiles as $js):?>
-<?=$js->htmlTag()?>
-<?endforeach;?>
-<?foreach($vv->importHeaderFiles as $import):?>
-<?=$import->htmlTag()?>
-<?endforeach;?>
-<?foreach($vv->jsHeaderScripts as $script):?>
-<?=$script?>
-<?endforeach;?>
-<?foreach($vv->rawHeaderContents as $script):?>
-<?=$script?>
-<?endforeach;?>
+<?php foreach($vv->cssHeaderFiles as $css):?>
+<?php echo $css->htmlTag()?>
+<?php endforeach; ?>
+<?php foreach($vv->jsHeaderFiles as $js):?>
+<?php echo $js->htmlTag()?>
+<?php endforeach; ?>
+<?php foreach($vv->importHeaderFiles as $import):?>
+<?php echo $import->htmlTag()?>
+<?php endforeach; ?>
+<?php foreach($vv->jsHeaderScripts as $script):?>
+<?php echo $script?>
+<?php endforeach; ?>
+<?php foreach($vv->rawHeaderContents as $script):?>
+<?php echo $script?>
+<?php endforeach; ?>
 </head>
 <body>
-<?
+<?php
 
 //------------------------------------BODY------------------------------
 
 
 ?>
-<?=$view->insideContent?>
+<?php echo $view->insideContent;?>
 </body>
-<?
+<?php
 
 //------------------------------AFTER BODY------------------------------
 
 
 ?>
 </html>
-<?
+<?php
 
 // JSON LayoutVars....
 
 ?>
 <script>
-<?
+<?php
 $vv->layoutVars->assets=[];
 $vv->layoutVars->assets["javascriptHeader"]=[];
 $vv->layoutVars->assets["javascriptFooter"]=[];
@@ -211,28 +211,28 @@ foreach ($vv->jsHeaderFiles as $f){
     $vv->layoutVars->assets["javascriptHeader"][]=$f->url;
 }
 ?>
-var LayoutVars=<?=json_encode($vv->layoutVars,JSON_UNESCAPED_SLASHES)?>;
-var pageInfo=<?=json_encode($vv->pageInfo,JSON_UNESCAPED_SLASHES)?>;
-var meta=<?=json_encode($vv->meta,JSON_UNESCAPED_SLASHES)?>;
+var LayoutVars=<?php echo json_encode($vv->layoutVars,JSON_UNESCAPED_SLASHES)?>;
+var pageInfo=<?php echo json_encode($vv->pageInfo,JSON_UNESCAPED_SLASHES)?>;
+var meta=<?php echo json_encode($vv->meta,JSON_UNESCAPED_SLASHES)?>;
 </script>
-<?
+<?php
 
 //JS & CSS footer....
 
 ?>
-<?foreach($vv->cssFooterFiles as $css):?>
-<?=$css->htmlTag()?>
-<?endforeach;?>
-<?foreach($vv->jsFooterFiles as $js):?>
-<?=$js->htmlTag()?>
-<?endforeach;?>
-<?foreach($vv->importFooterFiles as $import):?>
-<?=$import->htmlTag()?>
-<?endforeach;?>
-<?foreach($vv->jsFooterScripts as $script):?>
-<?=$script?>
-<?endforeach;?>
-<?foreach($vv->rawFooterContents as $script):?>
-    <?=$script?>
-<?endforeach;?>
+<?php foreach($vv->cssFooterFiles as $css):?>
+<?php echo $css->htmlTag()?>
+<?php endforeach; ?>
+<?php foreach($vv->jsFooterFiles as $js):?>
+<?php echo $js->htmlTag()?>
+<?php endforeach; ?>
+<?php foreach($vv->importFooterFiles as $import):?>
+<?php echo $import->htmlTag()?>
+<?php endforeach; ?>
+<?php foreach($vv->jsFooterScripts as $script):?>
+<?php echo $script?>
+<?php endforeach; ?>
+<?php foreach($vv->rawFooterContents as $script):?>
+    <?php echo $script?>
+<?php endforeach; ?>
 

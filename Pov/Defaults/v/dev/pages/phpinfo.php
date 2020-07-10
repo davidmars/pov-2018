@@ -11,4 +11,4 @@ $vv = $_vars;
 $view->inside("dev/dev-layout",the()->htmlLayout());
 ?>
 <hr>
-<? phpinfo()?>
+<?php phpinfo()?>
