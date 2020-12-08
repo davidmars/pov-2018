@@ -90,9 +90,18 @@ class ArrayUtils extends AbstractSingleton
      * @param object|array $object
      * @return array
      */
-    public function fromObject($object){
+    public function fromObject($object,$associative=true){
         $ar=json_encode($object);
-        $ar=json_decode($ar,true);
+        $ar=json_decode($ar,$associative);
+
+        if(!$associative){
+            $num=[];
+            foreach ($ar as $item=>$value ){
+                $num[]=$value;
+            }
+            return $num;
+        }
+
         return $ar;
     }
 
