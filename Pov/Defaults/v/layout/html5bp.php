@@ -33,6 +33,9 @@ if(!is_a($vv,"Pov\Html\Layout")){
 
 ?>
 <title><?php echo $vv->meta->title?></title>
+<?if(isset($vv->pageInfo->robots)):?>
+<meta name="robots" content="<?=$vv->pageInfo->robots?>">
+<?endif?>
 <meta name="description" content="<?php echo $vv->meta->description?>">
 <meta name="keywords" content="<?php echo $vv->meta->keywords?>">
 <meta name="twitter:card" content="<?php echo the()->htmlLayout()->twitterCardType?>" >
