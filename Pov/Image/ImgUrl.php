@@ -183,6 +183,11 @@ class ImgUrl
         $this->_quality=$quality;
         return $this;
     }
+    public function webp($quality=80){
+        $this->_extension="webp";
+        $this->_quality=$quality;
+        return $this;
+    }
     public function png(){
         $this->_extension="png";
         return $this;
@@ -201,7 +206,7 @@ class ImgUrl
      */
     public static function _fromUrl($url)
     {
-        $reg="@^(.*)/([a-z.]+)-([0-9]+)-([0-9]+)/([abcdefABCDEF0-9|transparent]{6,})-([0-9]+)\.([png|jpg|gif]+)$@";
+        $reg="@^(.*)/([a-z.]+)-([0-9]+)-([0-9]+)/([abcdefABCDEF0-9|transparent]{6,})-([0-9]+)\.([png|jpg|gif|webp]+)$@";
         if(preg_match($reg,$url,$params)){
             $image=new ImgUrl();
             $image->_source=$params[1];

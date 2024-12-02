@@ -37,7 +37,7 @@ class ImgUrlHtml extends ImgUrl
      * Retounre l'image sous forme de tag html IMG
      * @return HtmlTag
      */
-    public function htmlTag($class="",$alt="",$lazyLoading=false){
+    public function htmlTag($class="",$alt="",$lazyLoading=false,$width="",$height=""){
         $tag=new HtmlTag("img");
         if($lazyLoading){
             $this->attr()["data-src"]=$this->href();
@@ -48,6 +48,12 @@ class ImgUrlHtml extends ImgUrl
 
         $this->attr()["alt"]=$alt;
         $tag->setAttributes($this->attr());
+        if($width){
+            $tag->attr()["width"]=$width;
+        }
+        if($height){
+            $tag->attr()["height"]=$height;
+        }
         $tag->addClass($class);
         if( ($this->isEmpty()) && !$this->displayIfEmpty){
             return new HtmlTag("","empty image");
