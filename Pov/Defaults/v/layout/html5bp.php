@@ -95,7 +95,7 @@ if(!is_a($vv,"Pov\Html\Layout")){
 //Mobile
 
 ?>
-<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+<meta content='width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=1' name='viewport' />
 <?php
 
 //OpenGraph (facebook mainly)--
