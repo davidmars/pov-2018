@@ -47,13 +47,13 @@ class ImgUrlHtml extends ImgUrl
         }
 
         $this->attr()["alt"]=$alt;
-        $tag->setAttributes($this->attr());
         if($width){
-            $tag->attr()["width"]=$width;
+            $this->attr()["width"]=$width;
         }
         if($height){
-            $tag->attr()["height"]=$height;
+            $this->attr()["height"]=$height;
         }
+        $tag->setAttributes($this->attr());
         $tag->addClass($class);
         if( ($this->isEmpty()) && !$this->displayIfEmpty){
             return new HtmlTag("","empty image");
